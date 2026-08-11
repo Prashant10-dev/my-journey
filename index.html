@@ -1,108 +1,81 @@
-<!DOCTYPE html>
+<!doctype html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <meta name="description" content="My Journey — Gautam Kumar. Personal website, blog and photo gallery.">
-  <title>My Journey — Gautam Kumar</title>
-  <link rel="stylesheet" href="style.css">
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Gautam Kumar — My Journey</title>
+<meta name="description" content="Gautam Kumar — personal website, journey, memories, blog and gallery.">
+<link rel="stylesheet" href="style.css">
 </head>
 <body>
-  <header class="nav-wrap">
-    <nav class="nav container">
-      <a class="brand" href="#home">My<span>Journey</span></a>
-      <button class="menu-btn" aria-label="Open menu">☰</button>
-      <div class="links">
-        <a href="#home">Home</a><a href="#about">About</a><a href="#journey">Journey</a>
-        <a href="#blog">Blog</a><a href="#gallery">Gallery</a><a href="#contact">Contact</a>
-        <button id="themeBtn" class="theme" aria-label="Toggle theme">☀️</button>
-      </div>
-    </nav>
-  </header>
+<header class="nav">
+  <a class="brand" href="#home">Gautam<span>.</span></a>
+  <nav>
+    <a href="#home">Home</a><a href="#about">About</a><a href="#journey">Journey</a>
+    <a href="#blog">Blog</a><a href="#gallery">Gallery</a><a href="#contact">Contact</a>
+  </nav>
+  <button id="theme" class="icon-btn" aria-label="Toggle theme">☾</button>
+</header>
 
-  <main>
-    <section id="home" class="hero">
-      <div class="container hero-grid">
-        <div>
-          <p class="eyebrow">WELCOME TO MY WORLD</p>
-          <h1>My Journey<span>.</span></h1>
-          <p class="lead">Hi, I'm <strong>Gautam Kumar</strong>. This is my personal space for stories, ideas, memories and moments.</p>
-          <div class="actions">
-            <a class="btn primary" href="#journey">Explore My Journey</a>
-            <a class="btn ghost" href="#gallery">View Gallery</a>
-          </div>
-        </div>
-        <div class="hero-card">
-          <img class="profile-hero" src="gautam-profile.jpg" alt="Gautam Kumar">
-          <div class="quote">“Every journey begins with a single step.”</div>
-        </div>
-      </div>
-    </section>
+<main>
+<section id="home" class="hero">
+  <div class="hero-copy">
+    <p class="eyebrow">WELCOME TO MY WORLD</p>
+    <h1>My<br><span>Journey.</span></h1>
+    <p class="lead">Hi, I'm <b>Gautam Kumar</b>. This is my personal space for stories, ideas, memories and the moments that shape my journey.</p>
+    <div class="actions"><a class="btn primary" href="#journey">Explore My Journey</a><a class="btn" href="#gallery">View Gallery</a></div>
+    <div class="mini-stats"><div><b>01</b><span>My Story</span></div><div><b>02</b><span>My Memories</span></div><div><b>03</b><span>My Future</span></div></div>
+  </div>
+  <div class="hero-card">
+    <div class="glow"></div>
+    <img src="gautam-profile.jpg" alt="Gautam Kumar">
+    <div class="quote">“Every journey begins with a single step.”</div>
+  </div>
+</section>
 
-    <section id="about" class="section">
-      <div class="container two-col">
-        <div class="about-photo-wrap">
-          <img class="about-photo" src="gautam-profile.jpg" alt="Gautam Kumar">
-        </div>
-        <div>
-          <p class="eyebrow">ABOUT ME</p>
-          <h2>A little about Gautam</h2>
-        </div>
-        <div>
-          <p>Welcome to my personal website. I created <strong>My Journey</strong> as a place to share the things I learn, the moments I capture and the experiences that shape my story.</p>
-          <div class="chips"><span>Learning</span><span>Photography</span><span>Technology</span><span>Chess</span></div>
-        </div>
-      </div>
-    </section>
+<section id="about" class="section split">
+  <div><p class="eyebrow">ABOUT ME</p><h2>A little about <span>Gautam.</span></h2></div>
+  <div><p>Welcome to my corner of the internet. I created this website to keep my journey, memories, photographs and ideas in one place.</p>
+  <p>This site will grow with me — new experiences, new lessons, new goals and new stories will become part of it.</p></div>
+</section>
 
-    <section id="journey" class="section alt">
-      <div class="container">
-        <p class="eyebrow">THE JOURNEY</p><h2>Moments that matter</h2>
-        <div class="timeline">
-          <article><div class="dot"></div><div><small>Chapter 01</small><h3>Beginning</h3><p>Every story starts somewhere. This is where my journey begins.</p></div></article>
-          <article><div class="dot"></div><div><small>Chapter 02</small><h3>Learning & Growing</h3><p>Exploring new ideas, building skills and learning from every experience.</p></div></article>
-          <article><div class="dot"></div><div><small>Chapter 03</small><h3>What's Next</h3><p>The best chapters are still ahead. Follow along as the journey continues.</p></div></article>
-        </div>
-      </div>
-    </section>
+<section id="journey" class="section">
+  <p class="eyebrow">THE JOURNEY</p><h2>Moments that <span>matter.</span></h2>
+  <div class="timeline">
+    <article><b>01</b><div><h3>The Beginning</h3><p>Every big journey starts with a small decision to move forward.</p></div></article>
+    <article><b>02</b><div><h3>Learning & Growing</h3><p>Learning from experiences, building skills and becoming better one step at a time.</p></div></article>
+    <article><b>03</b><div><h3>Dreams Ahead</h3><p>The story is still being written. There is more to explore, create and achieve.</p></div></article>
+  </div>
+</section>
 
-    <section id="blog" class="section">
-      <div class="container">
-        <p class="eyebrow">FROM THE BLOG</p><h2>Stories & thoughts</h2>
-        <div class="cards">
-          <article class="card"><span class="tag">Journey</span><h3>Why I Started My Journey</h3><p>A short introduction to this personal space and what I hope to share here.</p><a href="first-post.html">Read story →</a></article>
-          <article class="card"><span class="tag">Learning</span><h3>Small Steps, Big Progress</h3><p>Progress doesn't always look dramatic. Sometimes consistency is the real achievement.</p><a href="second-post.html">Read story →</a></article>
-          <article class="card"><span class="tag">Memories</span><h3>Collecting Moments</h3><p>Photos preserve more than images — they preserve feelings, places and memories.</p><a href="#gallery">See memories →</a></article>
-        </div>
-      </div>
-    </section>
+<section id="blog" class="section">
+  <p class="eyebrow">FROM THE BLOG</p><h2>Thoughts & <span>stories.</span></h2>
+  <div class="cards">
+    <a class="card" href="first-post.html"><small>STORY 01</small><h3>My First Step</h3><p>A simple beginning can become a meaningful journey.</p><span>Read story →</span></a>
+    <a class="card" href="second-post.html"><small>STORY 02</small><h3>Keep Moving Forward</h3><p>Lessons, memories and the mindset behind progress.</p><span>Read story →</span></a>
+  </div>
+</section>
 
-    <section id="gallery" class="section alt">
-      <div class="container">
-        <p class="eyebrow">PHOTO GALLERY</p><h2>My moments</h2>
-        <p class="muted">Replace these demo cards with your own photos in the <code>images</code> folder.</p>
-        <div class="gallery">
-          <div class="photo p1"><span>Memory 01</span></div><div class="photo p2"><span>Memory 02</span></div>
-          <div class="photo p3"><span>Memory 03</span></div><div class="photo p4"><span>Memory 04</span></div>
-          <div class="photo p5"><span>Memory 05</span></div><div class="photo p6"><span>Memory 06</span></div>
-        </div>
-      </div>
-    </section>
+<section id="gallery" class="section">
+  <p class="eyebrow">PHOTO GALLERY</p><h2>My <span>memories.</span></h2>
+  <div class="gallery">
+    <figure><img src="gautam-profile.jpg" alt="Gautam Kumar"><figcaption>Featured memory</figcaption></figure>
+    <div class="gallery-placeholder"><span>+</span><p>Add your next photo here</p></div>
+    <div class="gallery-placeholder"><span>+</span><p>Add your next photo here</p></div>
+  </div>
+</section>
 
-    <section id="contact" class="section">
-      <div class="container contact">
-        <div><p class="eyebrow">CONTACT</p><h2>Let's connect.</h2><p class="muted">Add your social links or email below before publishing.</p></div>
-        <div class="contact-links">
-          <a href="https://instagram.com/prashant_raj111" target="_blank" rel="noopener">Instagram · prashant_raj111</a>
-          <a href="https://t.me/gautam8976" target="_blank" rel="noopener">Telegram · @gautam8976</a>
-          <a href="https://www.snapchat.com/add/gautamk0075" target="_blank" rel="noopener">Snapchat · gautamk0075</a>
-          <a href="https://www.chess.com/member/gautamk0077" target="_blank" rel="noopener">Chess.com · gautamk0077</a>
-        </div>
-      </div>
-    </section>
-  </main>
+<section id="contact" class="section contact">
+  <div><p class="eyebrow">CONNECT</p><h2>Let's stay <span>connected.</span></h2><p>My social links can be added here so visitors can easily find me.</p></div>
+  <div class="links">
+    <a href="https://instagram.com/prashant_raj111" target="_blank">Instagram <span>@prashant_raj111</span></a>
+    <a href="https://t.me/gautam8976" target="_blank">Telegram <span>@gautam8976</span></a>
+    <a href="https://www.snapchat.com/" target="_blank">Snapchat <span>gautamk0075</span></a>
+    <a href="https://www.chess.com/member/gautamk0077" target="_blank">Chess.com <span>gautamk0077</span></a>
+  </div>
+</section>
+</main>
 
-  <footer><div class="container footer"><span>© <span id="year"></span> Gautam Kumar</span><span>Made for the journey.</span></div></footer>
-  <script src="script.js"></script>
-</body>
-</html>
+<footer>© 2026 Gautam Kumar · My Journey</footer>
+<script src="script.js"></script>
+</body></html>
