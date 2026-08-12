@@ -1,37 +1,56 @@
-const theme=document.getElementById("theme");
-theme.addEventListener("click",()=>{document.body.classList.toggle("light");theme.textContent=document.body.classList.contains("light")?"☀":"☾";});
+const theme = document.getElementById("theme");
+
+if (theme) {
+  theme.addEventListener("click", () => {
+    document.body.classList.toggle("light");
+
+    theme.textContent =
+      document.body.classList.contains("light") ? "☀" : "☾";
+  });
+}
+
+
 /* =========================================
    AUTOMATIC GALLERY
 ========================================= */
 
 async function loadGallery() {
+
   const gallery = document.querySelector(".gallery");
 
   if (!gallery) return;
 
-  const API =
-    "https://api.github.com/repos/Prashant10-dev/my-journey/contents/gallery";
+  const api =
+    "https://api.github.com/repos/Prashant10-dev/my-journey/contents/gallery?ref=main";
 
   try {
-    const response = await fetch(API);
+
+    const response = await fetch(api, {
+      headers: {
+        "Accept": "application/vnd.github+json"
+      }
+    });
 
     if (!response.ok) {
-      throw new Error("Gallery could not be loaded");
+      throw new Error("GitHub Gallery API Error");
     }
 
     const files = await response.json();
 
     const photos = files.filter(file =>
+      file.type === "file" &&
       /\.(jpg|jpeg|png|webp|gif)$/i.test(file.name)
     );
 
     if (photos.length === 0) {
+
       gallery.innerHTML = `
         <div class="gallery-placeholder">
           <span>+</span>
-          <p>Add your next photo here</p>
+          <p>No photos yet</p>
         </div>
       `;
+
       return;
     }
 
@@ -57,16 +76,17 @@ async function loadGallery() {
 
   } catch (error) {
 
-    console.error("Gallery Error:", error);
+    console.error(error);
 
     gallery.innerHTML = `
       <div class="gallery-placeholder">
         <span>!</span>
-        <p>Gallery is loading...</p>
+        <p>Photos could not be loaded</p>
       </div>
     `;
   }
 }
 
-/* Load gallery */
+
+/* Start Gallery */
 document.addEventListener("DOMContentLoaded", loadGallery);
