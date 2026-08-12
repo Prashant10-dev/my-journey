@@ -1,3 +1,9 @@
+/* =========================================
+   THEME TOGGLE
+========================================= */
+
+const theme = document.getElementById("theme");
+
 if (theme) {
   theme.addEventListener("click", () => {
     document.body.classList.toggle("light");
@@ -21,11 +27,8 @@ async function loadGallery() {
   const API =
     "https://api.github.com/repos/Prashant10-dev/my-journey/contents/gallery?ref=main";
 
-  const imageTypes =
-    /\.(jpg|jpeg|png|webp|gif)$/i;
-
-  const videoTypes =
-    /\.(mp4|webm|ogg|mov)$/i;
+  const imageTypes = /\.(jpg|jpeg|png|webp|gif)$/i;
+  const videoTypes = /\.(mp4|webm|ogg)$/i;
 
   try {
 
@@ -34,7 +37,7 @@ async function loadGallery() {
     });
 
     if (!response.ok) {
-      throw new Error("GitHub Gallery API Error");
+      throw new Error("Gallery API error");
     }
 
     const files = await response.json();
@@ -48,7 +51,9 @@ async function loadGallery() {
     );
 
 
-    /* No media */
+    /* =========================================
+       NO MEDIA
+    ========================================= */
 
     if (media.length === 0) {
 
@@ -63,7 +68,24 @@ async function loadGallery() {
     }
 
 
-    /* Create Gallery */
+    /* =========================================
+       GITHUB PAGES BASE PATH
+    ========================================= */
+
+    let basePath = window.location.pathname;
+
+    if (!basePath.endsWith("/")) {
+      basePath =
+        basePath.substring(
+          0,
+          basePath.lastIndexOf("/") + 1
+        );
+    }
+
+
+    /* =========================================
+       CREATE GALLERY
+    ========================================= */
 
     gallery.innerHTML = media.map(file => {
 
@@ -75,30 +97,50 @@ async function loadGallery() {
         );
 
 
-      /* VIDEO */
+      /* Direct GitHub Pages URL */
+
+      const mediaURL =
+        window.location.origin +
+        basePath +
+        "gallery/" +
+        encodeURIComponent(file.name);
+
+
+      /* =========================================
+         VIDEO
+      ========================================= */
 
       if (videoTypes.test(file.name)) {
 
         return `
           <figure class="gallery-video">
 
-            <video
-              controls
-              preload="metadata"
-              playsinline
-            >
+            <div class="video-wrapper">
 
-              <source
-                src="${file.download_url}"
-                type="${getVideoType(file.name)}"
+              <video
+                controls
+                playsinline
+                preload="metadata"
+                poster=""
               >
 
-              Your browser does not support video playback.
+                <source
+                  src="${mediaURL}"
+                  type="${getVideoType(file.name)}"
+                >
 
-            </video>
+                Your browser does not support video.
+
+              </video>
+
+              <div class="video-label">
+                🎬 VIDEO
+              </div>
+
+            </div>
 
             <figcaption>
-              🎬 ${title}
+              ${title}
             </figcaption>
 
           </figure>
@@ -106,13 +148,15 @@ async function loadGallery() {
       }
 
 
-      /* PHOTO */
+      /* =========================================
+         PHOTO
+      ========================================= */
 
       return `
         <figure class="gallery-photo">
 
           <img
-            src="${file.download_url}"
+            src="${mediaURL}"
             alt="${title}"
             loading="lazy"
           >
@@ -134,7 +178,7 @@ async function loadGallery() {
     gallery.innerHTML = `
       <div class="gallery-placeholder">
         <span>!</span>
-        <p>Gallery could not be loaded</p>
+        <p>Gallery loading error</p>
       </div>
     `;
   }
@@ -142,7 +186,7 @@ async function loadGallery() {
 
 
 /* =========================================
-   VIDEO TYPE
+   VIDEO MIME TYPE
 ========================================= */
 
 function getVideoType(filename) {
@@ -153,20 +197,23 @@ function getVideoType(filename) {
       .pop()
       .toLowerCase();
 
-  if (extension === "webm") {
-    return "video/webm";
-  }
+  switch (extension) {
 
-  if (extension === "ogg") {
-    return "video/ogg";
-  }
+    case "webm":
+      return "video/webm";
 
-  return "video/mp4";
+    case "ogg":
+      return "video/ogg";
+
+    case "mp4":
+    default:
+      return "video/mp4";
+  }
 }
 
 
 /* =========================================
-   START GALLERY
+   START
 ========================================= */
 
 document.addEventListener(
