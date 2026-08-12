@@ -713,92 +713,351 @@ body.light .btn.primary{
 }
 
 /* ==================================================
-   TABLET
+   TABLET / DESKTOP MODE
    ================================================== */
 
-@media (min-width:769px) and (max-width:1000px){
+@media (min-width:769px){
 
+  /* Header */
   .nav{
-    padding:0 4%;
+    height:82px;
+    padding:0 6%;
   }
 
-  .nav > nav{
-    gap:14px;
+  .brand{
+    font-size:1.35rem;
   }
-
-  .nav > nav a{
-    font-size:.75rem;
-  }
-
-  .hero{
-    grid-template-columns:1fr 350px;
-
-    gap:40px;
-
-    padding:60px 5%;
-  }
-
-  .hero h1{
-    font-size:clamp(4.5rem,8vw,6rem);
-  }
-
-  .hero-card{
-    width:350px;
-  }
-
-  .section{
-    padding:85px 5%;
-  }
-}
-
-/* ==================================================
-   DESKTOP
-   ================================================== */
-
-@media (min-width:1001px){
 
   .nav > nav{
     display:flex !important;
-
     align-items:center;
+    gap:32px;
+  }
 
-    gap:26px;
+  .nav > nav a{
+    font-size:1rem;
+    font-weight:600;
+  }
+
+  .icon-btn{
+    width:46px;
+    height:46px;
+    border-radius:14px;
   }
 
   .mobile-nav{
     display:none !important;
   }
 
+  /* =========================
+     DESKTOP HERO
+  ========================= */
+
   .hero{
-    min-height:calc(100vh - 72px);
+    min-height:700px;
 
-    grid-template-columns:minmax(0,1.1fr) minmax(360px,.9fr);
+    max-width:1500px;
 
-    gap:80px;
+    grid-template-columns:
+      minmax(0,1.05fr)
+      minmax(400px,.95fr);
 
-    padding:80px 7%;
+    align-items:center;
+
+    gap:70px;
+
+    padding:60px 7%;
   }
 
   .hero h1{
-    font-size:clamp(5rem,7vw,7.5rem);
+    margin:0 0 28px;
+
+    font-size:clamp(5rem,7vw,7rem);
+
+    line-height:.88;
+
+    letter-spacing:-.065em;
   }
 
+  .eyebrow{
+    margin-bottom:20px;
+
+    font-size:.82rem;
+  }
+
+  .lead{
+    max-width:600px;
+
+    font-size:1.15rem;
+
+    line-height:1.75;
+  }
+
+  /* Bigger buttons */
+  .actions{
+    gap:16px;
+    margin:34px 0;
+  }
+
+  .btn{
+    padding:16px 25px;
+
+    border-radius:14px;
+
+    font-size:1rem;
+  }
+
+  /* Bigger stats */
+  .mini-stats{
+    gap:42px;
+    margin-top:34px;
+  }
+
+  .mini-stats b{
+    font-size:1.4rem;
+  }
+
+  .mini-stats span{
+    font-size:.85rem;
+  }
+
+  /* Bigger profile */
   .hero-card{
-    width:min(100%,440px);
+    width:min(100%,460px);
+
+    padding:14px;
+
+    border-radius:32px;
   }
 
+  .hero-card img{
+    border-radius:24px;
+  }
+
+  .quote{
+    left:30px;
+    right:30px;
+    bottom:30px;
+
+    padding:17px 20px;
+
+    font-size:1rem;
+  }
+
+  /* Sections */
   .section{
-    padding-left:7%;
-    padding-right:7%;
+    max-width:1350px;
+
+    padding:100px 7%;
   }
 }
 
-/* Light mobile navigation */
-body.light .mobile-nav{
-  background:rgba(255,255,255,.96);
 
-  border-top-color:#dddde0;
+/* ==================================================
+   LARGE DESKTOP
+   ================================================== */
 
-  box-shadow:
-    0 -8px 30px rgba(0,0,0,.12);
+@media (min-width:1001px){
+
+  .hero{
+    min-height:720px;
+
+    grid-template-columns:
+      minmax(0,1.08fr)
+      minmax(420px,.92fr);
+
+    gap:90px;
+
+    padding:60px 7%;
   }
+
+  .hero h1{
+    font-size:clamp(5.5rem,7vw,7.8rem);
+  }
+
+  .hero-card{
+    width:min(100%,480px);
+  }
+
+  .nav > nav{
+    gap:36px;
+  }
+
+  .nav > nav a{
+    font-size:1rem;
+  }
+}/* ==================================================
+   TABLET / DESKTOP MODE
+   ================================================== */
+
+@media (min-width:769px){
+
+  /* Header */
+  .nav{
+    height:82px;
+    padding:0 6%;
+  }
+
+  .brand{
+    font-size:1.35rem;
+  }
+
+  .nav > nav{
+    display:flex !important;
+    align-items:center;
+    gap:32px;
+  }
+
+  .nav > nav a{
+    font-size:1rem;
+    font-weight:600;
+  }
+
+  .icon-btn{
+    width:46px;
+    height:46px;
+    border-radius:14px;
+  }
+
+  .mobile-nav{
+    display:none !important;
+  }
+
+  /* =========================
+     DESKTOP HERO
+  ========================= */
+
+  .hero{
+    min-height:700px;
+
+    max-width:1500px;
+
+    grid-template-columns:
+      minmax(0,1.05fr)
+      minmax(400px,.95fr);
+
+    align-items:center;
+
+    gap:70px;
+
+    padding:60px 7%;
+  }
+
+  .hero h1{
+    margin:0 0 28px;
+
+    font-size:clamp(5rem,7vw,7rem);
+
+    line-height:.88;
+
+    letter-spacing:-.065em;
+  }
+
+  .eyebrow{
+    margin-bottom:20px;
+
+    font-size:.82rem;
+  }
+
+  .lead{
+    max-width:600px;
+
+    font-size:1.15rem;
+
+    line-height:1.75;
+  }
+
+  /* Bigger buttons */
+  .actions{
+    gap:16px;
+    margin:34px 0;
+  }
+
+  .btn{
+    padding:16px 25px;
+
+    border-radius:14px;
+
+    font-size:1rem;
+  }
+
+  /* Bigger stats */
+  .mini-stats{
+    gap:42px;
+    margin-top:34px;
+  }
+
+  .mini-stats b{
+    font-size:1.4rem;
+  }
+
+  .mini-stats span{
+    font-size:.85rem;
+  }
+
+  /* Bigger profile */
+  .hero-card{
+    width:min(100%,460px);
+
+    padding:14px;
+
+    border-radius:32px;
+  }
+
+  .hero-card img{
+    border-radius:24px;
+  }
+
+  .quote{
+    left:30px;
+    right:30px;
+    bottom:30px;
+
+    padding:17px 20px;
+
+    font-size:1rem;
+  }
+
+  /* Sections */
+  .section{
+    max-width:1350px;
+
+    padding:100px 7%;
+  }
+}
+
+
+/* ==================================================
+   LARGE DESKTOP
+   ================================================== */
+
+@media (min-width:1001px){
+
+  .hero{
+    min-height:720px;
+
+    grid-template-columns:
+      minmax(0,1.08fr)
+      minmax(420px,.92fr);
+
+    gap:90px;
+
+    padding:60px 7%;
+  }
+
+  .hero h1{
+    font-size:clamp(5.5rem,7vw,7.8rem);
+  }
+
+  .hero-card{
+    width:min(100%,480px);
+  }
+
+  .nav > nav{
+    gap:36px;
+  }
+
+  .nav > nav a{
+    font-size:1rem;
+  }
+}
