@@ -1,4 +1,8 @@
-@import url('https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600;700&family=Playfair+Display:wght@600;700&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600;700;800&family=Playfair+Display:wght@600;700&display=swap');
+
+/* =========================================================
+   ROOT
+========================================================= */
 
 :root{
   --bg:#0a0a0b;
@@ -15,6 +19,7 @@
 
 html{
   scroll-behavior:smooth;
+  scroll-padding-top:90px;
 }
 
 body{
@@ -30,15 +35,22 @@ a{
   text-decoration:none;
 }
 
-/* =========================
-   TOP NAVIGATION
-========================= */
+button{
+  font-family:inherit;
+}
+
+
+/* =========================================================
+   NAVIGATION
+========================================================= */
 
 .nav{
   position:sticky;
   top:0;
   z-index:1000;
-  height:72px;
+
+  width:100%;
+  height:82px;
 
   display:flex;
   align-items:center;
@@ -46,7 +58,8 @@ a{
 
   padding:0 6%;
 
-  background:rgba(10,10,11,.86);
+  background:rgba(10,10,11,.88);
+
   backdrop-filter:blur(18px);
   -webkit-backdrop-filter:blur(18px);
 
@@ -54,28 +67,26 @@ a{
 }
 
 .brand{
-  font-size:1.15rem;
+  font-size:1.4rem;
   font-weight:800;
+  letter-spacing:-.03em;
 }
 
-.brand span,
-h1 span,
-h2 span{
+.brand span{
   color:var(--accent);
 }
 
-/* Desktop navigation */
 .nav > nav{
   display:flex;
   align-items:center;
-  gap:26px;
+  gap:32px;
 }
 
 .nav > nav a{
   color:var(--muted);
-  font-size:.85rem;
-  font-weight:500;
-  transition:.2s;
+  font-size:.95rem;
+  font-weight:600;
+  transition:.2s ease;
 }
 
 .nav > nav a:hover{
@@ -83,121 +94,172 @@ h2 span{
 }
 
 .icon-btn{
-  width:40px;
-  height:40px;
+  width:48px;
+  height:48px;
 
   border:1px solid var(--line);
-  border-radius:12px;
+  border-radius:14px;
 
   background:var(--panel);
   color:var(--text);
 
+  font-size:1.1rem;
+
   cursor:pointer;
+
+  transition:.2s ease;
 }
 
-/* Mobile nav hidden by default */
+.icon-btn:hover{
+  transform:translateY(-2px);
+}
+
+
+/* =========================================================
+   MOBILE NAVIGATION
+========================================================= */
+
 .mobile-nav{
   display:none;
 }
 
-/* =========================
+
+/* =========================================================
    HERO
-========================= */
+========================================================= */
 
 .hero{
-  min-height:calc(100vh - 72px);
+  width:100%;
+  max-width:1500px;
 
-  max-width:1400px;
+  min-height:calc(100vh - 82px);
+
   margin:0 auto;
 
   display:grid;
-  grid-template-columns:minmax(0,1.08fr) minmax(330px,.92fr);
+
+  grid-template-columns:
+    minmax(0,1.05fr)
+    minmax(380px,.95fr);
 
   align-items:center;
-  gap:7%;
 
-  padding:80px 7%;
+  gap:70px;
+
+  padding:70px 7% 80px;
 
   background:
     radial-gradient(
-      circle at 75% 45%,
+      circle at 78% 48%,
       rgba(141,107,232,.12),
-      transparent 28%
+      transparent 30%
     ),
     radial-gradient(
-      circle at 85% 25%,
+      circle at 88% 25%,
       rgba(216,177,90,.10),
-      transparent 24%
+      transparent 25%
     );
 }
 
+.hero-copy{
+  max-width:700px;
+}
+
 .eyebrow{
-  margin:0 0 18px;
+  margin:0 0 20px;
 
   color:var(--accent);
 
-  font-size:.72rem;
-  font-weight:700;
+  font-size:.82rem;
+  font-weight:800;
 
-  letter-spacing:.22em;
+  letter-spacing:.25em;
 }
 
 .hero h1{
   margin:0 0 30px;
 
-  font-size:clamp(5rem,8vw,7.8rem);
-  line-height:.84;
+  font-size:clamp(5.5rem,7vw,8rem);
 
-  letter-spacing:-.07em;
+  line-height:.82;
 
-  font-weight:700;
+  letter-spacing:-.075em;
+
+  font-weight:800;
+}
+
+.hero h1 span{
+  color:var(--accent);
 }
 
 .lead{
-  max-width:580px;
+  max-width:620px;
+
+  margin:0;
 
   color:var(--muted);
 
-  font-size:1.05rem;
-  line-height:1.8;
+  font-size:1.12rem;
+
+  line-height:1.75;
 }
+
+
+/* =========================================================
+   BUTTONS
+========================================================= */
 
 .actions{
   display:flex;
-  gap:12px;
+  flex-wrap:wrap;
 
-  margin:30px 0;
+  gap:16px;
+
+  margin:32px 0;
 }
 
 .btn{
-  display:inline-block;
+  display:inline-flex;
 
-  padding:13px 19px;
+  align-items:center;
+  justify-content:center;
+
+  min-height:54px;
+
+  padding:15px 25px;
 
   border:1px solid var(--line);
-  border-radius:12px;
 
-  font-size:.9rem;
+  border-radius:14px;
+
+  font-size:1rem;
   font-weight:700;
 
-  transition:.2s;
+  transition:.25s ease;
 }
 
 .btn:hover{
-  transform:translateY(-2px);
+  transform:translateY(-3px);
 }
 
 .btn.primary{
   background:var(--text);
   color:#09090a;
+
   border-color:var(--text);
 }
 
+
+/* =========================================================
+   STATS
+========================================================= */
+
 .mini-stats{
   display:flex;
-  gap:30px;
 
-  margin-top:38px;
+  gap:45px;
+
+  margin-top:35px;
 }
 
 .mini-stats div{
@@ -206,38 +268,59 @@ h2 span{
 }
 
 .mini-stats b{
-  font-size:1.2rem;
+  font-size:1.35rem;
+  line-height:1.2;
 }
 
 .mini-stats span{
   color:var(--muted);
-  font-size:.75rem;
+  font-size:.85rem;
 }
 
-/* =========================
-   PROFILE CARD
-========================= */
+
+/* =========================================================
+   HERO CARD
+========================================================= */
 
 .hero-card{
   position:relative;
 
-  width:min(100%,440px);
+  width:min(100%,480px);
 
   justify-self:center;
 
-  padding:12px;
+  padding:14px;
 
   border:1px solid var(--line);
+
   border-radius:30px;
 
-  background:linear-gradient(
-    145deg,
-    #17171b,
-    #0e0e10
-  );
+  background:
+    linear-gradient(
+      145deg,
+      #18181c,
+      #0e0e10
+    );
 
   box-shadow:
     0 35px 80px rgba(0,0,0,.5);
+}
+
+.hero-card .glow{
+  position:absolute;
+
+  inset:-30px;
+
+  z-index:-1;
+
+  background:
+    radial-gradient(
+      circle,
+      rgba(216,177,90,.18),
+      transparent 65%
+    );
+
+  filter:blur(25px);
 }
 
 .hero-card img{
@@ -249,70 +332,92 @@ h2 span{
 
   object-fit:cover;
 
-  border-radius:22px;
+  border-radius:23px;
 }
 
 .quote{
   position:absolute;
 
-  left:28px;
-  right:28px;
-  bottom:28px;
+  left:30px;
+  right:30px;
+  bottom:30px;
 
-  padding:16px 18px;
+  padding:17px 20px;
 
-  border:1px solid rgba(255,255,255,.14);
+  border:1px solid rgba(255,255,255,.15);
+
   border-radius:16px;
 
   background:rgba(10,10,11,.78);
 
   backdrop-filter:blur(12px);
 
+  -webkit-backdrop-filter:blur(12px);
+
+  font-size:1rem;
+
   font-weight:700;
 }
 
-/* =========================
+
+/* =========================================================
    SECTIONS
-========================= */
+========================================================= */
 
 .section{
-  max-width:1250px;
+  width:100%;
+  max-width:1350px;
 
   margin:0 auto;
 
-  padding:110px 7%;
+  padding:120px 7%;
 
   border-top:1px solid var(--line);
 }
 
 .section h2{
-  margin:0 0 30px;
+  margin:0 0 35px;
 
   font-family:"Playfair Display",serif;
 
-  font-size:clamp(2.5rem,6vw,5rem);
+  font-size:clamp(3rem,5vw,5.5rem);
 
   line-height:1.05;
+
+  letter-spacing:-.04em;
 }
+
+.section h2 span{
+  color:var(--accent);
+}
+
+
+/* =========================================================
+   ABOUT
+========================================================= */
 
 .split{
   display:grid;
 
   grid-template-columns:1fr 1fr;
 
-  gap:10%;
+  gap:12%;
 }
 
-.split p,
-.contact p{
+.split p{
+  margin:0 0 25px;
+
   color:var(--muted);
 
-  font-size:1.05rem;
+  font-size:1.1rem;
+
+  line-height:1.8;
 }
 
-/* =========================
+
+/* =========================================================
    JOURNEY
-========================= */
+========================================================= */
 
 .timeline{
   display:grid;
@@ -322,14 +427,15 @@ h2 span{
 .timeline article{
   display:grid;
 
-  grid-template-columns:70px 1fr;
+  grid-template-columns:80px 1fr;
 
-  gap:20px;
+  gap:25px;
 
-  padding:25px;
+  padding:28px;
 
   border:1px solid var(--line);
-  border-radius:18px;
+
+  border-radius:20px;
 
   background:var(--panel);
 }
@@ -342,51 +448,59 @@ h2 span{
 
 .timeline h3{
   margin:0;
+
+  font-size:1.35rem;
 }
 
 .timeline p{
-  margin:5px 0 0;
+  margin:6px 0 0;
 
   color:var(--muted);
 }
 
-/* =========================
+
+/* =========================================================
    BLOG
-========================= */
+========================================================= */
 
 .cards{
   display:grid;
 
   grid-template-columns:repeat(2,1fr);
 
-  gap:18px;
+  gap:20px;
 }
 
 .card{
-  padding:30px;
+  display:block;
+
+  padding:32px;
 
   border:1px solid var(--line);
-  border-radius:20px;
+
+  border-radius:22px;
 
   background:var(--panel);
 
-  transition:.25s;
+  transition:.25s ease;
 }
 
 .card:hover{
-  transform:translateY(-4px);
+  transform:translateY(-5px);
 }
 
 .card small{
   color:var(--accent);
 
+  font-weight:700;
+
   letter-spacing:.15em;
 }
 
 .card h3{
-  margin:12px 0;
+  margin:14px 0;
 
-  font-size:1.7rem;
+  font-size:1.8rem;
 }
 
 .card p{
@@ -397,28 +511,30 @@ h2 span{
   font-weight:700;
 }
 
-/* =========================
+
+/* =========================================================
    GALLERY
-========================= */
+========================================================= */
 
 .gallery{
   display:grid;
 
   grid-template-columns:repeat(3,1fr);
 
-  gap:18px;
+  gap:20px;
 }
 
 .gallery figure,
 .gallery-placeholder{
   margin:0;
 
-  min-height:300px;
+  min-height:320px;
 
   overflow:hidden;
 
   border:1px solid var(--line);
-  border-radius:20px;
+
+  border-radius:22px;
 
   background:var(--panel);
 }
@@ -429,7 +545,7 @@ h2 span{
   width:100%;
   height:100%;
 
-  min-height:300px;
+  min-height:320px;
 
   object-fit:cover;
 }
@@ -439,11 +555,12 @@ h2 span{
 
   color:var(--muted);
 
-  font-size:.8rem;
+  font-size:.85rem;
 }
 
 .gallery-placeholder{
   display:grid;
+
   place-content:center;
 
   text-align:center;
@@ -457,16 +574,23 @@ h2 span{
   font-size:3rem;
 }
 
-/* =========================
+
+/* =========================================================
    CONTACT
-========================= */
+========================================================= */
 
 .contact{
   display:grid;
 
   grid-template-columns:1fr 1fr;
 
-  gap:10%;
+  gap:12%;
+}
+
+.contact p{
+  color:var(--muted);
+
+  font-size:1.1rem;
 }
 
 .links{
@@ -479,21 +603,30 @@ h2 span{
 
   justify-content:space-between;
 
-  padding:17px 0;
+  gap:20px;
+
+  padding:18px 0;
 
   border-bottom:1px solid var(--line);
+
+  transition:.2s;
+}
+
+.links a:hover{
+  color:var(--accent);
 }
 
 .links span{
   color:var(--muted);
 }
 
-/* =========================
+
+/* =========================================================
    FOOTER
-========================= */
+========================================================= */
 
 footer{
-  padding:40px 20px;
+  padding:45px 20px;
 
   text-align:center;
 
@@ -501,12 +634,13 @@ footer{
 
   border-top:1px solid var(--line);
 
-  font-size:.85rem;
+  font-size:.9rem;
 }
 
-/* =========================
+
+/* =========================================================
    LIGHT MODE
-========================= */
+========================================================= */
 
 body.light{
   --bg:#f7f7f4;
@@ -517,7 +651,7 @@ body.light{
 }
 
 body.light .nav{
-  background:rgba(247,247,244,.88);
+  background:rgba(247,247,244,.9);
 }
 
 body.light .btn.primary{
@@ -525,63 +659,174 @@ body.light .btn.primary{
   color:#fff;
 }
 
-/* ==================================================
-   MOBILE VIEW
-   ================================================== */
+body.light .hero-card{
+  background:#fff;
+
+  box-shadow:
+    0 30px 70px rgba(0,0,0,.15);
+}
+
+
+/* =========================================================
+   DESKTOP-SITE ON MOBILE / TABLET
+   Chrome Desktop Site usually gives ~980px CSS width.
+   
+   IMPORTANT:
+   NO FIXED 600px HERO HEIGHT.
+========================================================= */
+
+@media (min-width:769px) and (max-width:1100px){
+
+  .nav{
+    height:78px;
+
+    padding:0 5%;
+  }
+
+  .brand{
+    font-size:1.3rem;
+  }
+
+  .nav > nav{
+    gap:20px;
+  }
+
+  .nav > nav a{
+    font-size:.82rem;
+  }
+
+  .icon-btn{
+    width:44px;
+    height:44px;
+  }
+
+
+  .hero{
+    min-height:620px;
+
+    height:auto;
+
+    grid-template-columns:
+      minmax(0,1fr)
+      minmax(300px,380px);
+
+    gap:45px;
+
+    padding:55px 5% 65px;
+  }
+
+  .hero h1{
+    font-size:clamp(4.5rem,7vw,6.5rem);
+  }
+
+  .lead{
+    font-size:1rem;
+  }
+
+  .actions{
+    gap:12px;
+  }
+
+  .btn{
+    min-height:50px;
+
+    padding:13px 20px;
+
+    font-size:.9rem;
+  }
+
+  .mini-stats{
+    gap:30px;
+  }
+
+  .hero-card{
+    width:min(100%,380px);
+  }
+
+  .section{
+    padding:90px 5%;
+  }
+
+  .section h2{
+    font-size:clamp(2.8rem,5vw,4.5rem);
+  }
+}
+
+
+/* =========================================================
+   MOBILE
+========================================================= */
 
 @media (max-width:768px){
 
   body{
-    padding-bottom:76px;
+    padding-bottom:82px;
   }
 
-  /* Mobile top header */
+
+  /* TOP HEADER */
+
   .nav{
     height:62px;
 
     padding:0 5%;
   }
 
-  /* Hide desktop menu */
-  .nav > nav{
-    display:none !important;
+  .brand{
+    font-size:1.2rem;
   }
 
-  /* Mobile bottom navigation */
+  .nav > nav{
+    display:none;
+  }
+
+  .icon-btn{
+    width:44px;
+    height:44px;
+
+    border-radius:13px;
+  }
+
+
+  /* BOTTOM NAV */
+
   .mobile-nav{
-    position:fixed !important;
+    position:fixed;
 
-    left:0 !important;
-    right:0 !important;
-    bottom:0 !important;
+    left:12px;
+    right:12px;
+    bottom:12px;
 
-    z-index:99999 !important;
+    z-index:99999;
 
-    display:flex !important;
+    display:flex;
 
-    width:100% !important;
+    width:auto;
+
     height:72px;
 
     align-items:center;
     justify-content:space-around;
 
-    padding:6px 2px;
+    padding:5px 2px;
 
-    background:rgba(15,15,17,.97);
+    background:rgba(15,15,17,.96);
 
-    border-top:1px solid rgba(255,255,255,.15);
+    border:1px solid rgba(255,255,255,.15);
+
+    border-radius:26px;
 
     backdrop-filter:blur(18px);
     -webkit-backdrop-filter:blur(18px);
 
     box-shadow:
-      0 -8px 30px rgba(0,0,0,.25);
+      0 12px 40px rgba(0,0,0,.35);
   }
 
   .mobile-nav a{
     flex:1;
 
-    display:flex !important;
+    display:flex;
 
     flex-direction:column;
 
@@ -611,51 +856,108 @@ body.light .btn.primary{
     white-space:nowrap;
   }
 
-  .mobile-nav a:hover{
-    color:var(--accent);
-  }
 
-  /* Hero mobile */
+  /* MOBILE HERO */
+
   .hero{
     min-height:auto;
+
+    height:auto;
 
     display:grid;
 
     grid-template-columns:1fr;
 
-    gap:40px;
+    gap:42px;
 
     padding:50px 6% 75px;
   }
 
+  .hero-copy{
+    max-width:none;
+  }
+
+  .eyebrow{
+    margin-bottom:18px;
+
+    font-size:.7rem;
+  }
+
   .hero h1{
+    margin-bottom:28px;
+
     font-size:clamp(4rem,20vw,6rem);
 
     line-height:.86;
 
-    letter-spacing:-.06em;
+    letter-spacing:-.065em;
   }
 
   .lead{
     font-size:.95rem;
+
+    line-height:1.75;
   }
+
+
+  /* MOBILE BUTTONS */
 
   .actions{
-    flex-wrap:wrap;
+    display:flex;
+
+    flex-wrap:nowrap;
 
     gap:10px;
+
+    margin:28px 0;
   }
+
+  .btn{
+    flex:1;
+
+    min-height:52px;
+
+    padding:13px 12px;
+
+    border-radius:14px;
+
+    font-size:.9rem;
+
+    text-align:center;
+  }
+
+
+  /* MOBILE STATS */
 
   .mini-stats{
-    gap:20px;
+    gap:28px;
 
-    flex-wrap:wrap;
+    margin-top:30px;
   }
+
+  .mini-stats b{
+    font-size:1.2rem;
+  }
+
+  .mini-stats span{
+    font-size:.75rem;
+  }
+
+
+  /* MOBILE CARD */
 
   .hero-card{
     width:min(88vw,390px);
 
     justify-self:center;
+
+    padding:12px;
+
+    border-radius:27px;
+  }
+
+  .hero-card img{
+    border-radius:21px;
   }
 
   .quote{
@@ -665,15 +967,19 @@ body.light .btn.primary{
 
     padding:13px 15px;
 
-    font-size:.9rem;
+    font-size:.85rem;
   }
 
-  /* Sections */
+
+  /* MOBILE SECTIONS */
+
   .section{
     padding:75px 6%;
   }
 
   .section h2{
+    margin-bottom:28px;
+
     font-size:clamp(2.6rem,12vw,4rem);
   }
 
@@ -683,6 +989,14 @@ body.light .btn.primary{
     gap:25px;
   }
 
+  .split p,
+  .contact p{
+    font-size:.98rem;
+  }
+
+
+  /* MOBILE JOURNEY */
+
   .timeline article{
     grid-template-columns:55px 1fr;
 
@@ -691,9 +1005,19 @@ body.light .btn.primary{
     padding:20px;
   }
 
+
+  /* MOBILE BLOG */
+
   .cards{
     grid-template-columns:1fr;
   }
+
+  .card{
+    padding:25px;
+  }
+
+
+  /* MOBILE GALLERY */
 
   .gallery{
     grid-template-columns:1fr;
@@ -705,747 +1029,30 @@ body.light .btn.primary{
     min-height:340px;
   }
 
+
+  /* MOBILE CONTACT */
+
   .contact{
     grid-template-columns:1fr;
 
     gap:30px;
   }
-}
 
-/* ==================================================
-   TABLET / DESKTOP MODE
-   ================================================== */
-
-@media (min-width:769px){
-
-  /* Header */
-  .nav{
-    height:82px;
-    padding:0 6%;
-  }
-
-  .brand{
-    font-size:1.35rem;
-  }
-
-  .nav > nav{
-    display:flex !important;
-    align-items:center;
-    gap:32px;
-  }
-
-  .nav > nav a{
-    font-size:1rem;
-    font-weight:600;
-  }
-
-  .icon-btn{
-    width:46px;
-    height:46px;
-    border-radius:14px;
-  }
-
-  .mobile-nav{
-    display:none !important;
-  }
-
-  /* =========================
-     DESKTOP HERO
-  ========================= */
-
-  .hero{
-    min-height:700px;
-
-    max-width:1500px;
-
-    grid-template-columns:
-      minmax(0,1.05fr)
-      minmax(400px,.95fr);
-
-    align-items:center;
-
-    gap:70px;
-
-    padding:60px 7%;
-  }
-
-  .hero h1{
-    margin:0 0 28px;
-
-    font-size:clamp(5rem,7vw,7rem);
-
-    line-height:.88;
-
-    letter-spacing:-.065em;
-  }
-
-  .eyebrow{
-    margin-bottom:20px;
-
-    font-size:.82rem;
-  }
-
-  .lead{
-    max-width:600px;
-
-    font-size:1.15rem;
-
-    line-height:1.75;
-  }
-
-  /* Bigger buttons */
-  .actions{
-    gap:16px;
-    margin:34px 0;
-  }
-
-  .btn{
-    padding:16px 25px;
-
-    border-radius:14px;
-
-    font-size:1rem;
-  }
-
-  /* Bigger stats */
-  .mini-stats{
-    gap:42px;
-    margin-top:34px;
-  }
-
-  .mini-stats b{
-    font-size:1.4rem;
-  }
-
-  .mini-stats span{
-    font-size:.85rem;
-  }
-
-  /* Bigger profile */
-  .hero-card{
-    width:min(100%,460px);
-
-    padding:14px;
-
-    border-radius:32px;
-  }
-
-  .hero-card img{
-    border-radius:24px;
-  }
-
-  .quote{
-    left:30px;
-    right:30px;
-    bottom:30px;
-
-    padding:17px 20px;
-
-    font-size:1rem;
-  }
-
-  /* Sections */
-  .section{
-    max-width:1350px;
-
-    padding:100px 7%;
-  }
-}
-
-
-/* ==================================================
-   LARGE DESKTOP
-   ================================================== */
-
-@media (min-width:1001px){
-
-  .hero{
-    min-height:720px;
-
-    grid-template-columns:
-      minmax(0,1.08fr)
-      minmax(420px,.92fr);
-
-    gap:90px;
-
-    padding:60px 7%;
-  }
-
-  .hero h1{
-    font-size:clamp(5.5rem,7vw,7.8rem);
-  }
-
-  .hero-card{
-    width:min(100%,480px);
-  }
-
-  .nav > nav{
-    gap:36px;
-  }
-
-  .nav > nav a{
-    font-size:1rem;
-  }
-}/* ==================================================
-   TABLET / DESKTOP MODE
-   ================================================== */
-
-@media (min-width:769px){
-
-  /* Header */
-  .nav{
-    height:82px;
-    padding:0 6%;
-  }
-
-  .brand{
-    font-size:1.35rem;
-  }
-
-  .nav > nav{
-    display:flex !important;
-    align-items:center;
-    gap:32px;
-  }
-
-  .nav > nav a{
-    font-size:1rem;
-    font-weight:600;
-  }
-
-  .icon-btn{
-    width:46px;
-    height:46px;
-    border-radius:14px;
-  }
-
-  .mobile-nav{
-    display:none !important;
-  }
-
-  /* =========================
-     DESKTOP HERO
-  ========================= */
-
-  .hero{
-    min-height:700px;
-
-    max-width:1500px;
-
-    grid-template-columns:
-      minmax(0,1.05fr)
-      minmax(400px,.95fr);
-
-    align-items:center;
-
-    gap:70px;
-
-    padding:60px 7%;
-  }
-
-  .hero h1{
-    margin:0 0 28px;
-
-    font-size:clamp(5rem,7vw,7rem);
-
-    line-height:.88;
-
-    letter-spacing:-.065em;
-  }
-
-  .eyebrow{
-    margin-bottom:20px;
-
-    font-size:.82rem;
-  }
-
-  .lead{
-    max-width:600px;
-
-    font-size:1.15rem;
-
-    line-height:1.75;
-  }
-
-  /* Bigger buttons */
-  .actions{
-    gap:16px;
-    margin:34px 0;
-  }
-
-  .btn{
-    padding:16px 25px;
-
-    border-radius:14px;
-
-    font-size:1rem;
-  }
-
-  /* Bigger stats */
-  .mini-stats{
-    gap:42px;
-    margin-top:34px;
-  }
-
-  .mini-stats b{
-    font-size:1.4rem;
-  }
-
-  .mini-stats span{
-    font-size:.85rem;
-  }
-
-  /* Bigger profile */
-  .hero-card{
-    width:min(100%,460px);
-
-    padding:14px;
-
-    border-radius:32px;
-  }
-
-  .hero-card img{
-    border-radius:24px;
-  }
-
-  .quote{
-    left:30px;
-    right:30px;
-    bottom:30px;
-
-    padding:17px 20px;
-
-    font-size:1rem;
-  }
-
-  /* Sections */
-  .section{
-    max-width:1350px;
-
-    padding:100px 7%;
-  }
-}
-
-
-/* ==================================================
-   LARGE DESKTOP
-   ================================================== */
-
-@media (min-width:1001px){
-
-  .hero{
-    min-height:720px;
-
-    grid-template-columns:
-      minmax(0,1.08fr)
-      minmax(420px,.92fr);
-
-    gap:90px;
-
-    padding:60px 7%;
-  }
-
-  .hero h1{
-    font-size:clamp(5.5rem,7vw,7.8rem);
-  }
-
-  .hero-card{
-    width:min(100%,480px);
-  }
-
-  .nav > nav{
-    gap:36px;
-  }
-
-  .nav > nav a{
-    font-size:1rem;
-  }
-}
-/* ==================================================
-   FINAL DESKTOP-SITE FIX
-   ================================================== */
-
-@media (min-width:769px){
-
-  /* HEADER */
-  .nav{
-    height:82px !important;
-    padding:0 6% !important;
-  }
-
-  .brand{
-    font-size:1.35rem !important;
-  }
-
-  .nav > nav{
-    display:flex !important;
-    gap:32px !important;
-  }
-
-  .nav > nav a{
-    font-size:1rem !important;
-    font-weight:600 !important;
-  }
-
-  .icon-btn{
-    width:46px !important;
-    height:46px !important;
-  }
-
-  /* HERO — REMOVE HUGE EMPTY SPACE */
-  .hero{
-    min-height:0 !important;
-    height:650px !important;
-
-    max-width:1500px !important;
-
-    grid-template-columns:1.05fr .95fr !important;
-
-    align-items:center !important;
-
-    gap:60px !important;
-
-    padding:45px 7% !important;
-  }
-
-  /* BIGGER TITLE */
-  .hero h1{
-    font-size:clamp(5rem,7vw,7.5rem) !important;
-    line-height:.86 !important;
-
-    margin-bottom:25px !important;
-  }
-
-  .eyebrow{
-    font-size:.82rem !important;
-    margin-bottom:18px !important;
-  }
-
-  /* DESCRIPTION */
-  .lead{
-    max-width:600px !important;
-    font-size:1.1rem !important;
-    line-height:1.7 !important;
-  }
-
-  /* BUTTONS */
-  .actions{
-    gap:16px !important;
-    margin:30px 0 !important;
-  }
-
-  .btn{
-    padding:15px 24px !important;
-    border-radius:14px !important;
-    font-size:1rem !important;
-  }
-
-  /* STATS */
-  .mini-stats{
-    gap:38px !important;
-    margin-top:30px !important;
-  }
-
-  .mini-stats b{
-    font-size:1.35rem !important;
-  }
-
-  .mini-stats span{
-    font-size:.82rem !important;
-  }
-
-  /* PROFILE */
-  .hero-card{
-    width:min(100%,440px) !important;
-    padding:13px !important;
-    border-radius:28px !important;
-  }
-
-  .hero-card img{
-    border-radius:21px !important;
-  }
-
-  .quote{
-    left:28px !important;
-    right:28px !important;
-    bottom:28px !important;
-    font-size:.95rem !important;
-  }
-}
-
-
-/* ==================================================
-   DESKTOP-SITE / TABLET WIDTH
-   ================================================== */
-
-@media (min-width:769px) and (max-width:1100px){
-
-  .nav{
-    padding:0 4% !important;
-  }
-
-  .nav > nav{
-    gap:20px !important;
-  }
-
-  .nav > nav a{
-    font-size:.9rem !important;
-  }
-
-  .hero{
-    height:600px !important;
-
-    grid-template-columns:1fr 380px !important;
-
-    gap:40px !important;
-
-    padding:35px 5% !important;
-  }
-
-  .hero h1{
-    font-size:clamp(4.5rem,8vw,6.2rem) !important;
-  }
-
-  .hero-card{
-    width:360px !important;
-  }
-
-  .lead{
-    font-size:1rem !important;
-  }
-}
-/* =========================================================
-   FINAL DESKTOP FIX
-   Paste this at the VERY END of style.css
-========================================================= */
-
-@media (min-width:769px){
-
-  /* TOP NAV */
-  .nav{
-    height:82px !important;
-    padding:0 6% !important;
-  }
-
-  .brand{
-    font-size:1.45rem !important;
-    font-weight:800 !important;
-  }
-
-  .nav > nav{
-    display:flex !important;
-    align-items:center !important;
-    gap:34px !important;
-  }
-
-  .nav > nav a{
-    font-size:1rem !important;
-    font-weight:600 !important;
-  }
-
-  .icon-btn{
-    width:48px !important;
-    height:48px !important;
-    border-radius:14px !important;
-  }
-
-
-  /* ================= HERO ================= */
-
-  .hero{
-    min-height:680px !important;
-    height:auto !important;
-
-    max-width:1500px !important;
-
-    grid-template-columns:
-      minmax(0,1.05fr)
-      minmax(420px,.95fr) !important;
-
-    align-items:center !important;
-
-    gap:70px !important;
-
-    padding:
-      65px 6% 70px !important;
-
-    margin:0 auto !important;
-  }
-
-
-  /* HERO TEXT */
-
-  .eyebrow{
-    font-size:.82rem !important;
-    margin-bottom:20px !important;
-    letter-spacing:.25em !important;
-  }
-
-  .hero h1{
-    font-size:clamp(5.5rem,7vw,8rem) !important;
-    line-height:.82 !important;
-    letter-spacing:-.075em !important;
-    margin-bottom:30px !important;
-  }
-
-  .lead{
-    max-width:620px !important;
-    font-size:1.15rem !important;
-    line-height:1.75 !important;
-  }
-
-
-  /* BUTTONS */
-
-  .actions{
-    gap:16px !important;
-    margin:32px 0 !important;
-  }
-
-  .btn{
-    padding:16px 25px !important;
-    min-height:54px !important;
-
-    border-radius:14px !important;
-
-    font-size:1rem !important;
-  }
-
-
-  /* STATS */
-
-  .mini-stats{
-    gap:45px !important;
-    margin-top:35px !important;
-  }
-
-  .mini-stats b{
-    font-size:1.35rem !important;
-  }
-
-  .mini-stats span{
-    font-size:.85rem !important;
-  }
-
-
-  /* PROFILE CARD */
-
-  .hero-card{
-    width:min(100%,480px) !important;
-
-    padding:14px !important;
-
-    border-radius:30px !important;
-
-    transform:none !important;
-  }
-
-  .hero-card img{
-    border-radius:23px !important;
-  }
-
-  .quote{
-    left:30px !important;
-    right:30px !important;
-    bottom:30px !important;
-
-    padding:17px 20px !important;
-
-    font-size:1rem !important;
+  .links a{
+    font-size:.9rem;
   }
 }
 
 
 /* =========================================================
-   DESKTOP-MODE / TABLET WIDTH
-   Chrome mobile "Desktop site" often uses this range
+   LIGHT MODE MOBILE NAV
 ========================================================= */
 
-@media (min-width:769px) and (max-width:1100px){
+body.light .mobile-nav{
+  background:rgba(255,255,255,.96);
 
-  .nav{
-    height:76px !important;
-    padding:0 5% !important;
-  }
+  border-color:#dddde0;
 
-  .brand{
-    font-size:1.3rem !important;
-  }
-
-  .nav > nav{
-    gap:18px !important;
-  }
-
-  .nav > nav a{
-    font-size:.85rem !important;
-  }
-
-  .hero{
-    min-height:650px !important;
-    height:auto !important;
-
-    grid-template-columns:
-      minmax(0,1fr)
-      minmax(300px,380px) !important;
-
-    gap:45px !important;
-
-    padding:55px 5% 65px !important;
-  }
-
-  .hero h1{
-    font-size:clamp(4.5rem,7vw,6.5rem) !important;
-  }
-
-  .lead{
-    font-size:1rem !important;
-  }
-
-  .hero-card{
-    width:min(100%,380px) !important;
-  }
-
-  .btn{
-    padding:14px 20px !important;
-  }
-}
-
-
-/* =========================================================
-   IMPORTANT: MOBILE REMAINS UNCHANGED
-========================================================= */
-
-@media (max-width:768px){
-
-  .nav{
-    height:62px !important;
-    padding:0 5% !important;
-  }
-
-  .nav > nav{
-    display:none !important;
-  }
-
-  .mobile-nav{
-    display:flex !important;
-  }
-
-  .hero{
-    min-height:auto !important;
-    height:auto !important;
-
-    grid-template-columns:1fr !important;
-
-    padding:50px 6% 75px !important;
-
-    gap:40px !important;
-  }
-
-  .hero h1{
-    font-size:clamp(4rem,20vw,6rem) !important;
-  }
-
-  .hero-card{
-    width:min(88vw,390px) !important;
-  }
+  box-shadow:
+    0 12px 40px rgba(0,0,0,.12);
 }
