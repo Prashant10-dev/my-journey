@@ -1,18 +1,16 @@
 const theme = document.getElementById("theme");
 
-if (theme) {
-  theme.addEventListener("click", () => {
-    document.body.classList.toggle("light");
+theme.addEventListener("click", () => {
+  document.body.classList.toggle("light");
 
-    theme.textContent =
-      document.body.classList.contains("light") ? "☀" : "☾";
-  });
-}
+  theme.textContent =
+    document.body.classList.contains("light") ? "☀" : "☾";
+});
 
 
-/* =========================================
+/* =========================
    AUTOMATIC GALLERY
-========================================= */
+========================= */
 
 async function loadGallery() {
 
@@ -20,19 +18,17 @@ async function loadGallery() {
 
   if (!gallery) return;
 
-  const api =
+  const API =
     "https://api.github.com/repos/Prashant10-dev/my-journey/contents/gallery?ref=main";
 
   try {
 
-    const response = await fetch(api, {
-      headers: {
-        "Accept": "application/vnd.github+json"
-      }
+    const response = await fetch(API, {
+      cache: "no-store"
     });
 
     if (!response.ok) {
-      throw new Error("GitHub Gallery API Error");
+      throw new Error("GitHub Gallery API error");
     }
 
     const files = await response.json();
@@ -43,14 +39,12 @@ async function loadGallery() {
     );
 
     if (photos.length === 0) {
-
       gallery.innerHTML = `
         <div class="gallery-placeholder">
           <span>+</span>
-          <p>No photos yet</p>
+          <p>Add your next photo here</p>
         </div>
       `;
-
       return;
     }
 
@@ -76,17 +70,16 @@ async function loadGallery() {
 
   } catch (error) {
 
-    console.error(error);
+    console.error("Gallery Error:", error);
 
     gallery.innerHTML = `
       <div class="gallery-placeholder">
-        <span>!</span>
-        <p>Photos could not be loaded</p>
+        <span>+</span>
+        <p>Gallery is loading...</p>
       </div>
     `;
   }
 }
 
 
-/* Start Gallery */
 document.addEventListener("DOMContentLoaded", loadGallery);
