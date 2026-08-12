@@ -1061,3 +1061,156 @@ body.light .btn.primary{
     font-size:1rem;
   }
 }
+/* ==================================================
+   FINAL DESKTOP-SITE FIX
+   ================================================== */
+
+@media (min-width:769px){
+
+  /* HEADER */
+  .nav{
+    height:82px !important;
+    padding:0 6% !important;
+  }
+
+  .brand{
+    font-size:1.35rem !important;
+  }
+
+  .nav > nav{
+    display:flex !important;
+    gap:32px !important;
+  }
+
+  .nav > nav a{
+    font-size:1rem !important;
+    font-weight:600 !important;
+  }
+
+  .icon-btn{
+    width:46px !important;
+    height:46px !important;
+  }
+
+  /* HERO — REMOVE HUGE EMPTY SPACE */
+  .hero{
+    min-height:0 !important;
+    height:650px !important;
+
+    max-width:1500px !important;
+
+    grid-template-columns:1.05fr .95fr !important;
+
+    align-items:center !important;
+
+    gap:60px !important;
+
+    padding:45px 7% !important;
+  }
+
+  /* BIGGER TITLE */
+  .hero h1{
+    font-size:clamp(5rem,7vw,7.5rem) !important;
+    line-height:.86 !important;
+
+    margin-bottom:25px !important;
+  }
+
+  .eyebrow{
+    font-size:.82rem !important;
+    margin-bottom:18px !important;
+  }
+
+  /* DESCRIPTION */
+  .lead{
+    max-width:600px !important;
+    font-size:1.1rem !important;
+    line-height:1.7 !important;
+  }
+
+  /* BUTTONS */
+  .actions{
+    gap:16px !important;
+    margin:30px 0 !important;
+  }
+
+  .btn{
+    padding:15px 24px !important;
+    border-radius:14px !important;
+    font-size:1rem !important;
+  }
+
+  /* STATS */
+  .mini-stats{
+    gap:38px !important;
+    margin-top:30px !important;
+  }
+
+  .mini-stats b{
+    font-size:1.35rem !important;
+  }
+
+  .mini-stats span{
+    font-size:.82rem !important;
+  }
+
+  /* PROFILE */
+  .hero-card{
+    width:min(100%,440px) !important;
+    padding:13px !important;
+    border-radius:28px !important;
+  }
+
+  .hero-card img{
+    border-radius:21px !important;
+  }
+
+  .quote{
+    left:28px !important;
+    right:28px !important;
+    bottom:28px !important;
+    font-size:.95rem !important;
+  }
+}
+
+
+/* ==================================================
+   DESKTOP-SITE / TABLET WIDTH
+   ================================================== */
+
+@media (min-width:769px) and (max-width:1100px){
+
+  .nav{
+    padding:0 4% !important;
+  }
+
+  .nav > nav{
+    gap:20px !important;
+  }
+
+  .nav > nav a{
+    font-size:.9rem !important;
+  }
+
+  .hero{
+    height:600px !important;
+
+    grid-template-columns:1fr 380px !important;
+
+    gap:40px !important;
+
+    padding:35px 5% !important;
+  }
+
+  .hero h1{
+    font-size:clamp(4.5rem,8vw,6.2rem) !important;
+  }
+
+  .hero-card{
+    width:360px !important;
+  }
+
+  .lead{
+    font-size:1rem !important;
+  }
+}
