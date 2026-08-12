@@ -8,10 +8,10 @@ if (theme) {
 
 /* ================================
    AUTOMATIC PHOTO + VIDEO GALLERY
+   + LOAD MORE
 ================================ */
 
 async function loadGallery() {
-
   const gallery = document.querySelector(".gallery");
 
   if (!gallery) return;
@@ -19,8 +19,11 @@ async function loadGallery() {
   const API =
     "https://api.github.com/repos/Prashant10-dev/my-journey/contents/gallery";
 
-  try {
+  const ITEMS_PER_LOAD = 6;
+  let allMedia = [];
+  let visibleCount = 0;
 
+  try {
     const response = await fetch(API);
 
     if (!response.ok) {
@@ -29,85 +32,110 @@ async function loadGallery() {
 
     const files = await response.json();
 
-    const mediaFiles = files.filter(file => {
+    allMedia = files.filter(file =>
+      /\.(jpg|jpeg|png|gif|webp|mp4|webm|ogg|mov)$/i.test(file.name)
+    );
 
-      return /\.(jpg|jpeg|png|webp|gif|mp4|webm|mov|ogg)$/i
-        .test(file.name);
-
-    });
-
-    if (mediaFiles.length === 0) {
-
+    if (allMedia.length === 0) {
       gallery.innerHTML = `
         <div class="gallery-empty">
           <span>＋</span>
-          <p>No photos or videos yet.</p>
+          <p>Add your photos or videos here</p>
         </div>
       `;
-
       return;
     }
 
-    gallery.innerHTML = mediaFiles.map(file => {
+    renderMore();
 
-      const name = file.name
-        .replace(/\.[^/.]+$/, "")
-        .replace(/[-_]+/g, " ")
-        .replace(/\b\w/g, letter => letter.toUpperCase());
-
-      const isVideo =
-        /\.(mp4|webm|mov|ogg)$/i.test(file.name);
-
-      if (isVideo) {
-
-        return `
-          <figure class="media-card video-card">
-
-            <video
-              src="${file.download_url}"
-              preload="metadata"
-              playsinline
-              controls>
-            </video>
-
-            <div class="video-badge">▶ VIDEO</div>
-
-            <figcaption>${name}</figcaption>
-
-          </figure>
-        `;
-
-      }
-
-      return `
-        <figure class="media-card">
-
-          <img
-            src="${file.download_url}"
-            alt="${name}"
-            loading="lazy">
-
-          <figcaption>${name}</figcaption>
-
-        </figure>
-      `;
-
-    }).join("");
-
-  }
-
-  catch (error) {
-
+  } catch (error) {
     console.error("Gallery Error:", error);
 
     gallery.innerHTML = `
       <div class="gallery-empty">
         <span>!</span>
-        <p>Gallery is temporarily unavailable.</p>
+        <p>Gallery is loading...</p>
       </div>
     `;
+  }
 
+  function renderMore() {
+    const nextItems = allMedia.slice(
+      visibleCount,
+      visibleCount + ITEMS_PER_LOAD
+    );
+
+    nextItems.forEach(file => {
+      const isVideo = /\.(mp4|webm|ogg|mov)$/i.test(file.name);
+
+      const title = file.name
+        .replace(/\.[^/.]+$/, "")
+        .replace(/[-_]+/g, " ")
+        .replace(/\b\w/g, letter => letter.toUpperCase());
+
+      const card = document.createElement("figure");
+      card.className = isVideo
+        ? "media-card video-card"
+        : "media-card";
+
+      if (isVideo) {
+        card.innerHTML = `
+          <div class="media-wrapper">
+            <video
+              src="${file.download_url}"
+              controls
+              preload="metadata"
+              playsinline>
+            </video>
+
+            <span class="video-badge">▶ VIDEO</span>
+          </div>
+
+          <figcaption>${title}</figcaption>
+        `;
+      } else {
+        card.innerHTML = `
+          <div class="media-wrapper">
+            <img
+              src="${file.download_url}"
+              alt="${title}"
+              loading="lazy">
+          </div>
+
+          <figcaption>${title}</figcaption>
+        `;
+      }
+
+      gallery.appendChild(card);
+    });
+
+    visibleCount += nextItems.length;
+
+    updateLoadMoreButton();
+  }
+
+  function updateLoadMoreButton() {
+    let button = document.querySelector(".load-more-btn");
+
+    if (!button) {
+      button = document.createElement("button");
+      button.className = "load-more-btn";
+      button.textContent = "Load More";
+      button.addEventListener("click", renderMore);
+
+      gallery.parentElement.appendChild(button);
+    }
+
+    if (visibleCount >= allMedia.length) {
+      button.style.display = "none";
+    } else {
+      button.style.display = "block";
+
+      const remaining = allMedia.length - visibleCount;
+      button.textContent = `Load More (${remaining} remaining)`;
+    }
   }
 }
 
+/* Load gallery */
 document.addEventListener("DOMContentLoaded", loadGallery);
