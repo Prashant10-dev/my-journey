@@ -1,16 +1,16 @@
-const theme = document.getElementById("theme");
+if (theme) {
+  theme.addEventListener("click", () => {
+    document.body.classList.toggle("light");
 
-theme.addEventListener("click", () => {
-  document.body.classList.toggle("light");
-
-  theme.textContent =
-    document.body.classList.contains("light") ? "☀" : "☾";
-});
+    theme.textContent =
+      document.body.classList.contains("light") ? "☀" : "☾";
+  });
+}
 
 
-/* =========================
-   AUTOMATIC GALLERY
-========================= */
+/* =========================================
+   AUTOMATIC PHOTO + VIDEO GALLERY
+========================================= */
 
 async function loadGallery() {
 
@@ -21,6 +21,12 @@ async function loadGallery() {
   const API =
     "https://api.github.com/repos/Prashant10-dev/my-journey/contents/gallery?ref=main";
 
+  const imageTypes =
+    /\.(jpg|jpeg|png|webp|gif)$/i;
+
+  const videoTypes =
+    /\.(mp4|webm|ogg|mov)$/i;
+
   try {
 
     const response = await fetch(API, {
@@ -28,45 +34,98 @@ async function loadGallery() {
     });
 
     if (!response.ok) {
-      throw new Error("GitHub Gallery API error");
+      throw new Error("GitHub Gallery API Error");
     }
 
     const files = await response.json();
 
-    const photos = files.filter(file =>
+    const media = files.filter(file =>
       file.type === "file" &&
-      /\.(jpg|jpeg|png|webp|gif)$/i.test(file.name)
+      (
+        imageTypes.test(file.name) ||
+        videoTypes.test(file.name)
+      )
     );
 
-    if (photos.length === 0) {
+
+    /* No media */
+
+    if (media.length === 0) {
+
       gallery.innerHTML = `
         <div class="gallery-placeholder">
           <span>+</span>
-          <p>Add your next photo here</p>
+          <p>Add your next photo or video here</p>
         </div>
       `;
+
       return;
     }
 
-    gallery.innerHTML = photos.map(photo => {
 
-      const title = photo.name
+    /* Create Gallery */
+
+    gallery.innerHTML = media.map(file => {
+
+      const title = file.name
         .replace(/\.[^/.]+$/, "")
         .replace(/[-_]+/g, " ")
-        .replace(/\b\w/g, letter => letter.toUpperCase());
+        .replace(/\b\w/g, letter =>
+          letter.toUpperCase()
+        );
+
+
+      /* VIDEO */
+
+      if (videoTypes.test(file.name)) {
+
+        return `
+          <figure class="gallery-video">
+
+            <video
+              controls
+              preload="metadata"
+              playsinline
+            >
+
+              <source
+                src="${file.download_url}"
+                type="${getVideoType(file.name)}"
+              >
+
+              Your browser does not support video playback.
+
+            </video>
+
+            <figcaption>
+              🎬 ${title}
+            </figcaption>
+
+          </figure>
+        `;
+      }
+
+
+      /* PHOTO */
 
       return `
-        <figure>
+        <figure class="gallery-photo">
+
           <img
-            src="${photo.download_url}"
+            src="${file.download_url}"
             alt="${title}"
             loading="lazy"
           >
-          <figcaption>${title}</figcaption>
+
+          <figcaption>
+            📸 ${title}
+          </figcaption>
+
         </figure>
       `;
 
     }).join("");
+
 
   } catch (error) {
 
@@ -74,12 +133,43 @@ async function loadGallery() {
 
     gallery.innerHTML = `
       <div class="gallery-placeholder">
-        <span>+</span>
-        <p>Gallery is loading...</p>
+        <span>!</span>
+        <p>Gallery could not be loaded</p>
       </div>
     `;
   }
 }
 
 
-document.addEventListener("DOMContentLoaded", loadGallery);
+/* =========================================
+   VIDEO TYPE
+========================================= */
+
+function getVideoType(filename) {
+
+  const extension =
+    filename
+      .split(".")
+      .pop()
+      .toLowerCase();
+
+  if (extension === "webm") {
+    return "video/webm";
+  }
+
+  if (extension === "ogg") {
+    return "video/ogg";
+  }
+
+  return "video/mp4";
+}
+
+
+/* =========================================
+   START GALLERY
+========================================= */
+
+document.addEventListener(
+  "DOMContentLoaded",
+  loadGallery
+);
