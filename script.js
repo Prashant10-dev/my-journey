@@ -1,22 +1,14 @@
-/* =========================================
-   THEME TOGGLE
-========================================= */
-
 const theme = document.getElementById("theme");
 
 if (theme) {
   theme.addEventListener("click", () => {
     document.body.classList.toggle("light");
-
-    theme.textContent =
-      document.body.classList.contains("light") ? "☀" : "☾";
   });
 }
 
-
-/* =========================================
+/* ================================
    AUTOMATIC PHOTO + VIDEO GALLERY
-========================================= */
+================================ */
 
 async function loadGallery() {
 
@@ -25,198 +17,97 @@ async function loadGallery() {
   if (!gallery) return;
 
   const API =
-    "https://api.github.com/repos/Prashant10-dev/my-journey/contents/gallery?ref=main";
-
-  const imageTypes = /\.(jpg|jpeg|png|webp|gif)$/i;
-  const videoTypes = /\.(mp4|webm|ogg)$/i;
+    "https://api.github.com/repos/Prashant10-dev/my-journey/contents/gallery";
 
   try {
 
-    const response = await fetch(API, {
-      cache: "no-store"
-    });
+    const response = await fetch(API);
 
     if (!response.ok) {
-      throw new Error("Gallery API error");
+      throw new Error("Gallery could not be loaded");
     }
 
     const files = await response.json();
 
-    const media = files.filter(file =>
-      file.type === "file" &&
-      (
-        imageTypes.test(file.name) ||
-        videoTypes.test(file.name)
-      )
-    );
+    const mediaFiles = files.filter(file => {
 
+      return /\.(jpg|jpeg|png|webp|gif|mp4|webm|mov|ogg)$/i
+        .test(file.name);
 
-    /* =========================================
-       NO MEDIA
-    ========================================= */
+    });
 
-    if (media.length === 0) {
+    if (mediaFiles.length === 0) {
 
       gallery.innerHTML = `
-        <div class="gallery-placeholder">
-          <span>+</span>
-          <p>Add your next photo or video here</p>
+        <div class="gallery-empty">
+          <span>＋</span>
+          <p>No photos or videos yet.</p>
         </div>
       `;
 
       return;
     }
 
+    gallery.innerHTML = mediaFiles.map(file => {
 
-    /* =========================================
-       GITHUB PAGES BASE PATH
-    ========================================= */
-
-    let basePath = window.location.pathname;
-
-    if (!basePath.endsWith("/")) {
-      basePath =
-        basePath.substring(
-          0,
-          basePath.lastIndexOf("/") + 1
-        );
-    }
-
-
-    /* =========================================
-       CREATE GALLERY
-    ========================================= */
-
-    gallery.innerHTML = media.map(file => {
-
-      const title = file.name
+      const name = file.name
         .replace(/\.[^/.]+$/, "")
         .replace(/[-_]+/g, " ")
-        .replace(/\b\w/g, letter =>
-          letter.toUpperCase()
-        );
+        .replace(/\b\w/g, letter => letter.toUpperCase());
 
+      const isVideo =
+        /\.(mp4|webm|mov|ogg)$/i.test(file.name);
 
-      /* Direct GitHub Pages URL */
-
-      const mediaURL =
-        window.location.origin +
-        basePath +
-        "gallery/" +
-        encodeURIComponent(file.name);
-
-
-      /* =========================================
-         VIDEO
-      ========================================= */
-
-      if (videoTypes.test(file.name)) {
+      if (isVideo) {
 
         return `
-          <figure class="gallery-video">
+          <figure class="media-card video-card">
 
-            <div class="video-wrapper">
+            <video
+              src="${file.download_url}"
+              preload="metadata"
+              playsinline
+              controls>
+            </video>
 
-              <video
-                controls
-                playsinline
-                preload="metadata"
-                poster=""
-              >
+            <div class="video-badge">▶ VIDEO</div>
 
-                <source
-                  src="${mediaURL}"
-                  type="${getVideoType(file.name)}"
-                >
-
-                Your browser does not support video.
-
-              </video>
-
-              <div class="video-label">
-                🎬 VIDEO
-              </div>
-
-            </div>
-
-            <figcaption>
-              ${title}
-            </figcaption>
+            <figcaption>${name}</figcaption>
 
           </figure>
         `;
+
       }
 
-
-      /* =========================================
-         PHOTO
-      ========================================= */
-
       return `
-        <figure class="gallery-photo">
+        <figure class="media-card">
 
           <img
-            src="${mediaURL}"
-            alt="${title}"
-            loading="lazy"
-          >
+            src="${file.download_url}"
+            alt="${name}"
+            loading="lazy">
 
-          <figcaption>
-            📸 ${title}
-          </figcaption>
+          <figcaption>${name}</figcaption>
 
         </figure>
       `;
 
     }).join("");
 
+  }
 
-  } catch (error) {
+  catch (error) {
 
     console.error("Gallery Error:", error);
 
     gallery.innerHTML = `
-      <div class="gallery-placeholder">
+      <div class="gallery-empty">
         <span>!</span>
-        <p>Gallery loading error</p>
+        <p>Gallery is temporarily unavailable.</p>
       </div>
     `;
+
   }
 }
 
-
-/* =========================================
-   VIDEO MIME TYPE
-========================================= */
-
-function getVideoType(filename) {
-
-  const extension =
-    filename
-      .split(".")
-      .pop()
-      .toLowerCase();
-
-  switch (extension) {
-
-    case "webm":
-      return "video/webm";
-
-    case "ogg":
-      return "video/ogg";
-
-    case "mp4":
-    default:
-      return "video/mp4";
-  }
-}
-
-
-/* =========================================
-   START
-========================================= */
-
-document.addEventListener(
-  "DOMContentLoaded",
-  loadGallery
-);
+document.addEventListener("DOMContentLoaded", loadGallery);
