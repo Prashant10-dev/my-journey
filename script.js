@@ -139,3 +139,67 @@ async function loadGallery() {
 
 /* Load gallery */
 document.addEventListener("DOMContentLoaded", loadGallery);
+/* =================================
+   FULLSCREEN PHOTO VIEWER
+================================= */
+
+document.addEventListener("click", (e) => {
+  const img = e.target.closest(".media-card img");
+
+  if (!img) return;
+
+  const viewer = document.createElement("div");
+  viewer.className = "photo-viewer";
+
+  viewer.innerHTML = `
+    <button class="viewer-close">×</button>
+
+    <div class="viewer-image-box">
+      <img src="${img.src}" alt="${img.alt || "Photo"}">
+    </div>
+
+    <div class="viewer-caption">
+      ${img.alt || "Memory"}
+    </div>
+  `;
+
+  document.body.appendChild(viewer);
+
+  requestAnimationFrame(() => {
+    viewer.classList.add("active");
+  });
+
+  document.body.classList.add("viewer-open");
+
+  viewer.querySelector(".viewer-close").onclick = () => {
+    viewer.classList.remove("active");
+
+    setTimeout(() => {
+      viewer.remove();
+      document.body.classList.remove("viewer-open");
+    }, 250);
+  };
+
+  viewer.onclick = (event) => {
+    if (event.target === viewer) {
+      viewer.querySelector(".viewer-close").click();
+    }
+  };
+});
+
+
+/* ESC KEY TO CLOSE */
+
+document.addEventListener("keydown", (e) => {
+
+  if (e.key === "Escape") {
+
+    const viewer = document.querySelector(".photo-viewer");
+
+    if (viewer) {
+      viewer.querySelector(".viewer-close").click();
+    }
+
+  }
+
+});
