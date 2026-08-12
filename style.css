@@ -2318,3 +2318,250 @@ body.light .viewer-close {
 body.light .viewer-info {
   color: #111;
    }
+/* =========================================================
+   PREMIUM ABOUT SECTION
+========================================================= */
+
+.about-section {
+  position: relative;
+  overflow: hidden;
+}
+
+
+/* Heading */
+
+.about-heading {
+  max-width: 800px;
+  margin-bottom: 55px;
+}
+
+.about-heading h2 {
+  margin-bottom: 18px;
+}
+
+.about-intro {
+  max-width: 560px;
+
+  color: var(--muted);
+
+  font-size: 1rem;
+}
+
+
+/* Main layout */
+
+.about-content {
+  display: grid;
+
+  grid-template-columns:
+    minmax(0, .85fr)
+    minmax(0, 1.15fr);
+
+  gap: 8%;
+
+  align-items: start;
+}
+
+
+/* Text */
+
+.about-text {
+  color: var(--muted);
+
+  font-size: 1.05rem;
+
+  line-height: 1.85;
+}
+
+.about-text strong {
+  color: var(--text);
+}
+
+
+/* Quote */
+
+.about-quote {
+  position: relative;
+
+  margin-top: 35px;
+
+  padding: 22px 25px 22px 45px;
+
+  border-left: 2px solid var(--accent);
+
+  border-radius: 0 15px 15px 0;
+
+  background:
+    linear-gradient(
+      90deg,
+      rgba(216,177,90,.08),
+      transparent
+    );
+
+  color: var(--text);
+
+  font-weight: 600;
+}
+
+
+.about-quote span {
+  position: absolute;
+
+  left: 14px;
+  top: 12px;
+
+  color: var(--accent);
+
+  font-family: Georgia, serif;
+
+  font-size: 2rem;
+}
+
+
+/* Cards */
+
+.about-cards {
+  display: grid;
+
+  grid-template-columns: repeat(2, 1fr);
+
+  gap: 15px;
+}
+
+
+.about-card {
+  display: flex;
+
+  gap: 16px;
+
+  padding: 23px;
+
+  border: 1px solid var(--line);
+
+  border-radius: 18px;
+
+  background: var(--panel);
+
+  transition:
+    transform .25s ease,
+    border-color .25s ease,
+    box-shadow .25s ease;
+}
+
+
+.about-card:hover {
+  transform: translateY(-5px);
+
+  border-color:
+    rgba(216,177,90,.45);
+
+  box-shadow:
+    0 18px 40px rgba(0,0,0,.18);
+}
+
+
+/* Icons */
+
+.about-icon {
+  flex: 0 0 45px;
+
+  width: 45px;
+  height: 45px;
+
+  display: flex;
+
+  align-items: center;
+  justify-content: center;
+
+  border: 1px solid var(--line);
+
+  border-radius: 13px;
+
+  background:
+    rgba(216,177,90,.07);
+
+  font-size: 21px;
+}
+
+
+/* Card text */
+
+.about-card small {
+  color: var(--accent);
+
+  font-size: .65rem;
+
+  font-weight: 800;
+
+  letter-spacing: .14em;
+}
+
+
+.about-card h3 {
+  margin: 5px 0 6px;
+
+  font-size: 1.05rem;
+}
+
+
+.about-card p {
+  margin: 0;
+
+  color: var(--muted);
+
+  font-size: .82rem;
+
+  line-height: 1.55;
+}
+
+
+/* =========================================================
+   ABOUT MOBILE
+========================================================= */
+
+@media (max-width: 768px) {
+
+  .about-heading {
+    margin-bottom: 35px;
+  }
+
+
+  .about-content {
+    grid-template-columns: 1fr;
+
+    gap: 35px;
+  }
+
+
+  .about-text {
+    font-size: .95rem;
+  }
+
+
+  .about-cards {
+    grid-template-columns: 1fr;
+
+    gap: 12px;
+  }
+
+
+  .about-card {
+    padding: 19px;
+  }
+
+}
+
+
+/* =========================================================
+   ABOUT TABLET
+========================================================= */
+
+@media (min-width: 769px) and (max-width: 1000px) {
+
+  .about-content {
+    grid-template-columns: 1fr 1.2fr;
+
+    gap: 35px;
+  }
+
+}
