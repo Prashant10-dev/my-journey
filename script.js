@@ -243,7 +243,7 @@ document.addEventListener("DOMContentLoaded", () => {
 
         <div class="media-wrapper photo-wrapper">
 
-         img
+         <img
   src="${escapeHTML(file.download_url)}"
   alt="${escapeHTML(title)}"
   loading="lazy"
