@@ -12,7 +12,9 @@ document.addEventListener("DOMContentLoaded", () => {
   const themeButton = document.getElementById("theme");
 
   if (themeButton) {
+
     themeButton.addEventListener("click", () => {
+
       document.body.classList.toggle("light");
 
       localStorage.setItem(
@@ -21,11 +23,13 @@ document.addEventListener("DOMContentLoaded", () => {
           ? "light"
           : "dark"
       );
+
     });
 
     if (localStorage.getItem("theme") === "light") {
       document.body.classList.add("light");
     }
+
   }
 
 
@@ -42,12 +46,22 @@ document.addEventListener("DOMContentLoaded", () => {
     "https://api.github.com/repos/Prashant10-dev/my-journey/contents/gallery";
 
 
-  /* How many media items appear at one time */
   const ITEMS_PER_LOAD = 6;
 
 
   let allMedia = [];
   let visibleCount = 0;
+
+
+  /* =======================================================
+     VIEWER STATE
+  ======================================================= */
+
+  let currentViewerIndex = 0;
+  let viewerElement = null;
+
+  let touchStartX = 0;
+  let touchEndX = 0;
 
 
   /* =======================================================
@@ -79,9 +93,7 @@ document.addEventListener("DOMContentLoaded", () => {
       const files = await response.json();
 
 
-      /* ---------------------------------------------------
-         Only photos + videos
-      --------------------------------------------------- */
+      /* Only photos + videos */
 
       allMedia = files.filter(file => {
 
@@ -93,9 +105,7 @@ document.addEventListener("DOMContentLoaded", () => {
       });
 
 
-      /* ---------------------------------------------------
-         Sort alphabetically for stable gallery
-      --------------------------------------------------- */
+      /* Stable alphabetical order */
 
       allMedia.sort((a, b) =>
         a.name.localeCompare(b.name)
@@ -140,7 +150,10 @@ document.addEventListener("DOMContentLoaded", () => {
       <div class="gallery-empty">
         <span>＋</span>
         <h3>No memories yet</h3>
-        <p>Add photos or videos inside the <b>gallery</b> folder.</p>
+        <p>
+          Add photos or videos inside the
+          <b>gallery</b> folder.
+        </p>
       </div>
     `;
 
@@ -157,7 +170,9 @@ document.addEventListener("DOMContentLoaded", () => {
       <div class="gallery-empty gallery-error">
         <span>!</span>
         <h3>Gallery unavailable</h3>
-        <p>Please refresh the page and try again.</p>
+        <p>
+          Please refresh the page and try again.
+        </p>
       </div>
     `;
 
@@ -177,9 +192,7 @@ document.addEventListener("DOMContentLoaded", () => {
 
 
     nextItems.forEach(file => {
-
       createMediaCard(file);
-
     });
 
 
@@ -201,10 +214,18 @@ document.addEventListener("DOMContentLoaded", () => {
       /\.(mp4|webm|ogg|mov)$/i.test(file.name);
 
 
-    const title = createTitle(file.name);
+    const title =
+      createTitle(file.name);
 
 
-    const card = document.createElement("figure");
+    const mediaIndex =
+      allMedia.findIndex(item =>
+        item.name === file.name
+      );
+
+
+    const card =
+      document.createElement("figure");
 
 
     card.className =
@@ -213,9 +234,9 @@ document.addEventListener("DOMContentLoaded", () => {
         : "media-card photo-card";
 
 
-    /* ---------------------------------------------------
+    /* =====================================================
        PHOTO
-    --------------------------------------------------- */
+    ===================================================== */
 
     if (!isVideo) {
 
@@ -224,7 +245,7 @@ document.addEventListener("DOMContentLoaded", () => {
         <div class="media-wrapper photo-wrapper">
 
           <img
-            src="${file.download_url}"
+            src="${escapeHTML(file.download_url)}"
             alt="${escapeHTML(title)}"
             loading="lazy"
           >
@@ -242,12 +263,26 @@ document.addEventListener("DOMContentLoaded", () => {
 
       `;
 
+
+      gallery.appendChild(card);
+
+
+      const image =
+        card.querySelector("img");
+
+
+      image.addEventListener("click", () => {
+
+        openMediaViewer(mediaIndex);
+
+      });
+
     }
 
 
-    /* ---------------------------------------------------
+    /* =====================================================
        VIDEO
-    --------------------------------------------------- */
+    ===================================================== */
 
     else {
 
@@ -256,7 +291,7 @@ document.addEventListener("DOMContentLoaded", () => {
         <div class="media-wrapper video-wrapper">
 
           <video
-            src="${file.download_url}"
+            src="${escapeHTML(file.download_url)}"
             preload="metadata"
             playsinline
             controls
@@ -273,7 +308,8 @@ document.addEventListener("DOMContentLoaded", () => {
 
 
           <div class="video-top-label">
-            <span>▶</span> VIDEO
+            <span>▶</span>
+            VIDEO
           </div>
 
         </div>
@@ -285,90 +321,87 @@ document.addEventListener("DOMContentLoaded", () => {
 
       `;
 
-    }
 
+      gallery.appendChild(card);
 
-    gallery.appendChild(card);
-
-
-    /* ===================================================
-       PHOTO CLICK
-    =================================================== */
-
-    if (!isVideo) {
-
-      const image =
-        card.querySelector("img");
-
-
-      image.addEventListener("click", () => {
-
-        openPhotoViewer(
-          file.download_url,
-          title
-        );
-
-      });
-
-    }
-
-
-    /* ===================================================
-       VIDEO PLAY BUTTON
-    =================================================== */
-
-    else {
 
       const video =
         card.querySelector("video");
+
 
       const playButton =
         card.querySelector(".video-play-button");
 
 
-      playButton.addEventListener("click", event => {
+      /* Play button */
 
-        event.stopPropagation();
+      playButton.addEventListener(
+        "click",
+        event => {
+
+          event.stopPropagation();
 
 
-        if (video.paused) {
+          if (video.paused) {
 
-          video.play()
-            .then(() => {
-              playButton.classList.add("playing");
-            })
-            .catch(() => {});
+            video.play()
+              .then(() => {
+                playButton.classList.add("playing");
+              })
+              .catch(() => {});
 
-        } else {
+          } else {
 
-          video.pause();
+            video.pause();
 
-          playButton.classList.remove("playing");
+            playButton.classList.remove(
+              "playing"
+            );
+
+          }
 
         }
-
-      });
-
-
-      video.addEventListener("play", () => {
-
-        playButton.classList.add("playing");
-
-      });
+      );
 
 
-      video.addEventListener("pause", () => {
+      /* Video events */
 
-        playButton.classList.remove("playing");
+      video.addEventListener(
+        "play",
+        () => {
+          playButton.classList.add("playing");
+        }
+      );
 
-      });
+
+      video.addEventListener(
+        "pause",
+        () => {
+          playButton.classList.remove("playing");
+        }
+      );
 
 
-      video.addEventListener("ended", () => {
+      video.addEventListener(
+        "ended",
+        () => {
+          playButton.classList.remove("playing");
+        }
+      );
 
-        playButton.classList.remove("playing");
 
-      });
+      /* Click video itself → viewer */
+
+      video.addEventListener(
+        "click",
+        event => {
+
+          event.preventDefault();
+
+          openMediaViewer(mediaIndex);
+
+        }
+      );
 
     }
 
@@ -404,18 +437,20 @@ document.addEventListener("DOMContentLoaded", () => {
       document.querySelector(".load-more-btn");
 
 
-    /* Create button once */
+    /* Create once */
 
     if (!button) {
 
       button =
         document.createElement("button");
 
+
       button.className =
         "load-more-btn";
 
 
-      button.type = "button";
+      button.type =
+        "button";
 
 
       button.addEventListener(
@@ -432,9 +467,7 @@ document.addEventListener("DOMContentLoaded", () => {
     }
 
 
-    /* ---------------------------------------------------
-       Everything loaded
-    --------------------------------------------------- */
+    /* Everything loaded */
 
     if (visibleCount >= allMedia.length) {
 
@@ -445,9 +478,7 @@ document.addEventListener("DOMContentLoaded", () => {
     }
 
 
-    /* ---------------------------------------------------
-       More available
-    --------------------------------------------------- */
+    /* More available */
 
     const remaining =
       allMedia.length - visibleCount;
@@ -466,109 +497,171 @@ document.addEventListener("DOMContentLoaded", () => {
 
 
   /* =======================================================
-     FULLSCREEN PHOTO VIEWER
+     OPEN PHOTO + VIDEO VIEWER
   ======================================================= */
 
-  function openPhotoViewer(src, title) {
+  function openMediaViewer(index) {
 
-    /* Prevent duplicate viewer */
-
-    const oldViewer =
-      document.querySelector(".photo-viewer");
-
-    if (oldViewer) {
-      oldViewer.remove();
+    if (
+      index < 0 ||
+      index >= allMedia.length
+    ) {
+      return;
     }
 
 
-    const viewer =
+    currentViewerIndex = index;
+
+
+    /* Remove old viewer */
+
+    if (viewerElement) {
+
+      viewerElement.remove();
+
+      viewerElement = null;
+
+    }
+
+
+    /* Create viewer */
+
+    viewerElement =
       document.createElement("div");
 
 
-    viewer.className =
+    viewerElement.className =
       "photo-viewer";
 
 
-    viewer.innerHTML = `
+    viewerElement.innerHTML = `
 
       <button
         class="viewer-close"
         type="button"
-        aria-label="Close"
+        aria-label="Close viewer"
       >
         ×
       </button>
 
 
+      <button
+        class="viewer-prev"
+        type="button"
+        aria-label="Previous media"
+      >
+        ‹
+      </button>
+
+
       <div class="viewer-content">
 
-        <img
-          src="${src}"
-          alt="${escapeHTML(title)}"
-        >
+        <div class="viewer-media"></div>
 
         <div class="viewer-info">
 
-          <span>PHOTO</span>
+          <span class="viewer-type"></span>
 
-          <strong>
-            ${escapeHTML(title)}
-          </strong>
+          <strong class="viewer-title"></strong>
+
+          <small class="viewer-counter"></small>
 
         </div>
 
       </div>
 
+
+      <button
+        class="viewer-next"
+        type="button"
+        aria-label="Next media"
+      >
+        ›
+      </button>
+
     `;
 
 
-    document.body.appendChild(viewer);
+    document.body.appendChild(
+      viewerElement
+    );
 
-
-    /* Prevent background scroll */
 
     document.body.classList.add(
       "viewer-open"
     );
 
 
+    /* Render current item */
+
+    renderViewerMedia();
+
+
     /* Animation */
 
     requestAnimationFrame(() => {
 
-      viewer.classList.add("active");
+      viewerElement.classList.add(
+        "active"
+      );
 
     });
 
 
-    /* Close button */
+    /* Close */
 
-    const closeButton =
-      viewer.querySelector(
-        ".viewer-close"
+    viewerElement
+      .querySelector(".viewer-close")
+      .addEventListener(
+        "click",
+        closeMediaViewer
       );
 
 
-    closeButton.addEventListener(
-      "click",
-      closePhotoViewer
-    );
+    /* Previous */
+
+    viewerElement
+      .querySelector(".viewer-prev")
+      .addEventListener(
+        "click",
+        event => {
+
+          event.stopPropagation();
+
+          showPreviousMedia();
+
+        }
+      );
 
 
-    /* Click outside image */
+    /* Next */
 
-    viewer.addEventListener(
+    viewerElement
+      .querySelector(".viewer-next")
+      .addEventListener(
+        "click",
+        event => {
+
+          event.stopPropagation();
+
+          showNextMedia();
+
+        }
+      );
+
+
+    /* Click background */
+
+    viewerElement.addEventListener(
       "click",
       event => {
 
         if (
-          event.target === viewer ||
-          event.target.classList.contains(
-            "viewer-content"
-          )
+          event.target ===
+          viewerElement
         ) {
 
-          closePhotoViewer();
+          closeMediaViewer();
 
         }
 
@@ -576,24 +669,316 @@ document.addEventListener("DOMContentLoaded", () => {
     );
 
 
-    /* ESC */
+    /* =====================================================
+       TOUCH SWIPE
+    ===================================================== */
 
-    function closePhotoViewer() {
+    viewerElement.addEventListener(
+      "touchstart",
+      event => {
 
-      viewer.classList.remove(
-        "active"
+        touchStartX =
+          event.changedTouches[0].screenX;
+
+      },
+      { passive: true }
+    );
+
+
+    viewerElement.addEventListener(
+      "touchend",
+      event => {
+
+        touchEndX =
+          event.changedTouches[0].screenX;
+
+
+        handleSwipe();
+
+      },
+      { passive: true }
+    );
+
+  }
+
+
+  /* =======================================================
+     RENDER CURRENT VIEWER MEDIA
+  ======================================================= */
+
+  function renderViewerMedia() {
+
+    if (!viewerElement) return;
+
+
+    const media =
+      allMedia[currentViewerIndex];
+
+
+    if (!media) return;
+
+
+    const isVideo =
+      /\.(mp4|webm|ogg|mov)$/i.test(
+        media.name
       );
 
 
-      setTimeout(() => {
+    const title =
+      createTitle(media.name);
 
-        viewer.remove();
 
-        document.body.classList.remove(
-          "viewer-open"
-        );
+    const mediaBox =
+      viewerElement.querySelector(
+        ".viewer-media"
+      );
 
-      }, 250);
+
+    const typeBox =
+      viewerElement.querySelector(
+        ".viewer-type"
+      );
+
+
+    const titleBox =
+      viewerElement.querySelector(
+        ".viewer-title"
+      );
+
+
+    const counterBox =
+      viewerElement.querySelector(
+        ".viewer-counter"
+      );
+
+
+    /* Clear previous */
+
+    mediaBox.innerHTML = "";
+
+
+    /* =====================================================
+       PHOTO
+    ===================================================== */
+
+    if (!isVideo) {
+
+      const image =
+        document.createElement("img");
+
+
+      image.src =
+        media.download_url;
+
+
+      image.alt =
+        title;
+
+
+      image.draggable =
+        false;
+
+
+      mediaBox.appendChild(
+        image
+      );
+
+
+      typeBox.textContent =
+        "PHOTO";
+
+    }
+
+
+    /* =====================================================
+       VIDEO
+    ===================================================== */
+
+    else {
+
+      const video =
+        document.createElement("video");
+
+
+      video.src =
+        media.download_url;
+
+
+      video.controls =
+        true;
+
+
+      video.autoplay =
+        true;
+
+
+      video.playsInline =
+        true;
+
+
+      video.preload =
+        "metadata";
+
+
+      video.setAttribute(
+        "playsinline",
+        ""
+      );
+
+
+      mediaBox.appendChild(
+        video
+      );
+
+
+      typeBox.textContent =
+        "VIDEO";
+
+
+      video.play()
+        .catch(() => {});
+
+    }
+
+
+    titleBox.textContent =
+      title;
+
+
+    counterBox.textContent =
+      `${currentViewerIndex + 1} / ${allMedia.length}`;
+
+
+    /* Update navigation */
+
+    updateViewerNavigation();
+
+  }
+
+
+  /* =======================================================
+     PREVIOUS
+  ======================================================= */
+
+  function showPreviousMedia() {
+
+    if (!allMedia.length) return;
+
+
+    currentViewerIndex--;
+
+    if (currentViewerIndex < 0) {
+
+      currentViewerIndex =
+        allMedia.length - 1;
+
+    }
+
+
+    renderViewerMedia();
+
+  }
+
+
+  /* =======================================================
+     NEXT
+  ======================================================= */
+
+  function showNextMedia() {
+
+    if (!allMedia.length) return;
+
+
+    currentViewerIndex++;
+
+    if (
+      currentViewerIndex >=
+      allMedia.length
+    ) {
+
+      currentViewerIndex = 0;
+
+    }
+
+
+    renderViewerMedia();
+
+  }
+
+
+  /* =======================================================
+     NAVIGATION BUTTON STATE
+  ======================================================= */
+
+  function updateViewerNavigation() {
+
+    if (!viewerElement) return;
+
+
+    const previous =
+      viewerElement.querySelector(
+        ".viewer-prev"
+      );
+
+
+    const next =
+      viewerElement.querySelector(
+        ".viewer-next"
+      );
+
+
+    /*
+      We keep both buttons active and loop
+      from first → last and last → first.
+    */
+
+    if (previous) {
+      previous.disabled =
+        allMedia.length <= 1;
+    }
+
+
+    if (next) {
+      next.disabled =
+        allMedia.length <= 1;
+    }
+
+  }
+
+
+  /* =======================================================
+     SWIPE
+  ======================================================= */
+
+  function handleSwipe() {
+
+    const distance =
+      touchEndX - touchStartX;
+
+
+    const minimumSwipe =
+      55;
+
+
+    if (
+      Math.abs(distance) <
+      minimumSwipe
+    ) {
+      return;
+    }
+
+
+    if (distance < 0) {
+
+      /* Swipe left → next */
+
+      showNextMedia();
+
+    } else {
+
+      /* Swipe right → previous */
+
+      showPreviousMedia();
 
     }
 
@@ -601,32 +986,75 @@ document.addEventListener("DOMContentLoaded", () => {
 
 
   /* =======================================================
-     ESC KEY
+     CLOSE VIEWER
+  ======================================================= */
+
+  function closeMediaViewer() {
+
+    if (!viewerElement) return;
+
+
+    viewerElement.classList.remove(
+      "active"
+    );
+
+
+    setTimeout(() => {
+
+      if (viewerElement) {
+
+        viewerElement.remove();
+
+        viewerElement = null;
+
+      }
+
+
+      document.body.classList.remove(
+        "viewer-open"
+      );
+
+    }, 250);
+
+  }
+
+
+  /* =======================================================
+     KEYBOARD CONTROLS
   ======================================================= */
 
   document.addEventListener(
     "keydown",
     event => {
 
-      if (event.key !== "Escape") return;
+      if (!viewerElement) return;
 
 
-      const viewer =
-        document.querySelector(
-          ".photo-viewer"
-        );
+      switch (event.key) {
+
+        case "Escape":
+
+          closeMediaViewer();
+
+          break;
 
 
-      if (viewer) {
+        case "ArrowLeft":
 
-        const close =
-          viewer.querySelector(
-            ".viewer-close"
-          );
+          event.preventDefault();
 
-        if (close) {
-          close.click();
-        }
+          showPreviousMedia();
+
+          break;
+
+
+        case "ArrowRight":
+
+          event.preventDefault();
+
+          showNextMedia();
+
+          break;
 
       }
 
@@ -635,7 +1063,7 @@ document.addEventListener("DOMContentLoaded", () => {
 
 
   /* =======================================================
-     SECURITY — ESCAPE FILE NAMES
+     SECURITY — ESCAPE HTML
   ======================================================= */
 
   function escapeHTML(value) {
