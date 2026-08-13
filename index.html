@@ -53,8 +53,12 @@
   </div>
   <div class="hero-card">
     <div class="glow"></div>
-    <img src="gautam-profile.jpg" alt="Gautam Kumar"> 
-    <div class="quote">“Every journey begins with a single step.”</div>
+    <img
+  src="${escapeHTML(file.download_url)}"
+  alt="${escapeHTML(title)}"
+  loading="lazy"
+  decoding="async"
+>    <div class="quote">“Every journey begins with a single step.”</div>
   </div>
 </section>
 <section id="about" class="section about-section">
