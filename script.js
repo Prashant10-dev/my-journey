@@ -81,9 +81,8 @@ document.addEventListener("DOMContentLoaded", () => {
     try {
 
       const response = await fetch(API, {
-        cache: "no-store"
-      });
-
+  cache: "default"
+});
 
       if (!response.ok) {
         throw new Error("Gallery could not be loaded");
