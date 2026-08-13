@@ -4157,3 +4157,68 @@ body.light .viewer-info {
   }
 
 }
+/* =========================================================
+   LIGHT MODE — HERO FINAL FIX
+========================================================= */
+
+body.light .hero-card {
+  background: linear-gradient(
+    145deg,
+    #ffffff,
+    #eeeeee
+  );
+
+  border-color: var(--line);
+
+  box-shadow:
+    0 30px 70px rgba(0,0,0,.12);
+}
+
+
+/* Profile photo quote */
+
+body.light .hero-card .quote {
+  background: rgba(255,255,255,.88);
+
+  color: #151516;
+
+  border-color: rgba(0,0,0,.12);
+
+  box-shadow:
+    0 8px 25px rgba(0,0,0,.08);
+}
+
+
+/* Keep the quote readable */
+
+body.light .hero-card .quote {
+  backdrop-filter: blur(14px);
+  -webkit-backdrop-filter: blur(14px);
+}
+
+
+/* Mobile navigation */
+
+body.light .mobile-nav {
+  background: rgba(255,255,255,.94);
+
+  border-color: rgba(0,0,0,.12);
+
+  box-shadow:
+    0 12px 40px rgba(0,0,0,.15);
+}
+
+body.light .mobile-nav a {
+  color: #626269;
+}
+
+
+/* Theme button */
+
+body.light .icon-btn {
+  background: #ffffff;
+
+  color: #151516;
+
+  border-color: #dddde0;
+}
