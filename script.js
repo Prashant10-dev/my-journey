@@ -242,13 +242,13 @@ document.addEventListener("DOMContentLoaded", () => {
       card.innerHTML = `
 
         <div class="media-wrapper photo-wrapper">
-<img
-  src="${escapeHTML(file.download_url)}"
-  alt="${escapeHTML(title)}"
-  loading="lazy"
-  decoding="async"
->
-         
+
+          <img
+            src="${escapeHTML(file.download_url)}"
+            alt="${escapeHTML(title)}"
+            loading="lazy"
+          >
+
           <div class="photo-overlay">
             <span>⛶</span>
             <small>View</small>
@@ -1089,3 +1089,4 @@ document.addEventListener("DOMContentLoaded", () => {
   loadGallery();
 
 });
+       
