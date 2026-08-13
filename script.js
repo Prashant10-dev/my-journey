@@ -243,12 +243,12 @@ document.addEventListener("DOMContentLoaded", () => {
 
         <div class="media-wrapper photo-wrapper">
 
-          <img
-            src="${escapeHTML(file.download_url)}"
-            alt="${escapeHTML(title)}"
-            loading="lazy"
-          >
-
+         img
+  src="${escapeHTML(file.download_url)}"
+  alt="${escapeHTML(title)}"
+  loading="lazy"
+  decoding="async"
+>    
           <div class="photo-overlay">
             <span>⛶</span>
             <small>View</small>
