@@ -94,15 +94,14 @@ document.addEventListener("DOMContentLoaded", () => {
 
       /* Only photos + videos */
 
-      allMedia = files.filter(file => {
+      allMedia = prepareGalleryMedia(files);
 
-        if (file.type !== "file") return false;
-
-        return /\.(jpg|jpeg|png|gif|webp|avif|mp4|webm|ogg|mov)$/i
-          .test(file.name);
-
-      });
-
+allMedia.sort((a, b) => {
+  return a.name.localeCompare(b.name, undefined, {
+    numeric: true,
+    sensitivity: "base"
+  });
+});
 
       /* Stable alphabetical order */
 
