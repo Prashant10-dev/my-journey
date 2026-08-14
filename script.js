@@ -49,6 +49,60 @@ document.addEventListener("DOMContentLoaded", () => {
   const ITEMS_PER_LOAD = 6;
 
 
+/* =======================================================
+   WEBP OPTIMIZATION
+======================================================= */
+
+function prepareGalleryMedia(files) {
+  const images = new Map();
+  const webps = new Map();
+  const videos = [];
+
+  files.forEach(file => {
+    if (file.type !== "file") return;
+
+    if (/\.(mp4|webm|ogg|mov)$/i.test(file.name)) {
+      videos.push(file);
+      return;
+    }
+
+    if (/\.(jpg|jpeg|png)$/i.test(file.name)) {
+      const key = file.name
+        .replace(/\.(jpg|jpeg|png)$/i, "")
+        .toLowerCase();
+
+      images.set(key, file);
+      return;
+    }
+
+    if (/\.webp$/i.test(file.name)) {
+      const key = file.name
+        .replace(/\.webp$/i, "")
+        .toLowerCase();
+
+      webps.set(key, file);
+    }
+  });
+
+  const result = [];
+
+  images.forEach((original, key) => {
+    if (webps.has(key)) {
+      result.push(webps.get(key));
+    } else {
+      result.push(original);
+    }
+  });
+
+  webps.forEach((webp, key) => {
+    if (!images.has(key)) {
+      result.push(webp);
+    }
+  });
+
+  return [...result, ...videos];
+}
+
   let allMedia = [];
   let visibleCount = 0;
 
@@ -98,11 +152,7 @@ document.addEventListener("DOMContentLoaded", () => {
 
 allMedia.sort((a, b) =>
   a.name.localeCompare(b.name, undefined, {
-    numeric: true,
-    sensitivity: "base"
-  })
-);
-
+    
       /* Stable alphabetical order */
 
       allMedia.sort((a, b) =>
@@ -243,10 +293,11 @@ allMedia.sort((a, b) =>
         <div class="media-wrapper photo-wrapper">
 
           <img
-            src="${escapeHTML(file.download_url)}"
-            alt="${escapeHTML(title)}"
-            loading="lazy"
-          >
+  src="${escapeHTML(file.download_url)}"
+  alt="${escapeHTML(title)}"
+  loading="lazy"
+  decoding="async"
+>
 
           <div class="photo-overlay">
             <span>⛶</span>
