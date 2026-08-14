@@ -405,7 +405,78 @@ document.addEventListener("DOMContentLoaded", () => {
     }
 
   }
+/* =======================================================
+   WEBP OPTIMIZATION
+======================================================= */
 
+function prepareGalleryMedia(files) {
+
+  const mediaFiles = files.filter(file => {
+    if (file.type !== "file") return false;
+
+    return /\.(jpg|jpeg|png|gif|webp|avif|mp4|webm|ogg|mov)$/i.test(
+      file.name
+    );
+  });
+
+  const webpMap = new Map();
+
+  /* Collect WebP files */
+  mediaFiles.forEach(file => {
+
+    if (/\.webp$/i.test(file.name)) {
+
+      const baseName = file.name
+        .replace(/\.webp$/i, "")
+        .toLowerCase();
+
+      webpMap.set(baseName, file);
+    }
+
+  });
+
+  const finalMedia = [];
+
+  mediaFiles.forEach(file => {
+
+    /* Videos */
+    if (/\.(mp4|webm|ogg|mov)$/i.test(file.name)) {
+      finalMedia.push(file);
+      return;
+    }
+
+    /* WebP */
+    if (/\.webp$/i.test(file.name)) {
+      return;
+    }
+
+    const baseName = file.name
+      .replace(/\.(jpg|jpeg|png|gif|avif)$/i, "")
+      .toLowerCase();
+
+    const webp = webpMap.get(baseName);
+
+    if (webp) {
+
+      finalMedia.push({
+        ...webp,
+        originalName: file.name,
+        optimized: true
+      });
+
+    } else {
+
+      finalMedia.push({
+        ...file,
+        optimized: false
+      });
+
+    }
+
+  });
+
+  return finalMedia;
+}
 
   /* =======================================================
      TITLE FROM FILE NAME
