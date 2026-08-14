@@ -1,0 +1,484 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+
+  <meta
+    name="viewport"
+    content="width=device-width, initial-scale=1.0"
+  >
+
+  <title>Gautam Kumar — Projects</title>
+
+  <meta
+    name="description"
+    content="Projects, experiments and creations by Gautam Kumar."
+  >
+
+  <style>
+    * {
+      box-sizing: border-box;
+    }
+
+    body {
+      margin: 0;
+      min-height: 100vh;
+      font-family:
+        Inter,
+        system-ui,
+        -apple-system,
+        BlinkMacSystemFont,
+        "Segoe UI",
+        sans-serif;
+
+      background: #0a0a0b;
+      color: #ffffff;
+    }
+
+    a {
+      color: inherit;
+      text-decoration: none;
+    }
+
+    .projects-page {
+      width: min(1150px, 92%);
+      margin: auto;
+      padding-bottom: 70px;
+    }
+
+    /* HEADER */
+
+    .projects-header {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+
+      padding: 25px 0;
+
+      border-bottom:
+        1px solid rgba(255,255,255,.08);
+    }
+
+    .brand {
+      font-size: 1.2rem;
+      font-weight: 800;
+    }
+
+    .brand span {
+      color: #d6b45a;
+    }
+
+    .back-button {
+      padding: 10px 17px;
+
+      border:
+        1px solid rgba(255,255,255,.12);
+
+      border-radius: 999px;
+
+      background:
+        rgba(255,255,255,.04);
+
+      font-size: .82rem;
+
+      transition: .25s ease;
+    }
+
+    .back-button:hover {
+      background: #d6b45a;
+      color: #111;
+    }
+
+    /* HERO */
+
+    .projects-hero {
+      padding: 80px 0 55px;
+    }
+
+    .eyebrow {
+      color: #d6b45a;
+
+      font-size: .72rem;
+
+      font-weight: 800;
+
+      letter-spacing: .22em;
+    }
+
+    .projects-hero h1 {
+      margin: 15px 0;
+
+      font-family: Georgia, serif;
+
+      font-size:
+        clamp(3rem, 8vw, 6rem);
+
+      line-height: .95;
+    }
+
+    .projects-hero h1 span {
+      color: #d6b45a;
+    }
+
+    .projects-hero p {
+      max-width: 650px;
+
+      color: #aaa;
+
+      line-height: 1.8;
+
+      font-size: .95rem;
+    }
+
+    /* PROJECT GRID */
+
+    .projects-grid {
+      display: grid;
+
+      grid-template-columns:
+        repeat(3, 1fr);
+
+      gap: 22px;
+    }
+
+    /* CARD */
+
+    .project-card {
+      overflow: hidden;
+
+      border:
+        1px solid rgba(255,255,255,.09);
+
+      border-radius: 22px;
+
+      background:
+        rgba(255,255,255,.035);
+
+      box-shadow:
+        0 20px 60px rgba(0,0,0,.25);
+
+      transition:
+        transform .3s ease,
+        border-color .3s ease,
+        box-shadow .3s ease;
+    }
+
+    .project-card:hover {
+      transform: translateY(-7px);
+
+      border-color:
+        rgba(214,180,90,.45);
+
+      box-shadow:
+        0 30px 70px rgba(0,0,0,.4);
+    }
+
+    /* PREVIEW */
+
+    .project-preview {
+      aspect-ratio: 16 / 10;
+
+      display: flex;
+
+      align-items: center;
+      justify-content: center;
+
+      background:
+        linear-gradient(
+          135deg,
+          #171719,
+          #2a281f
+        );
+
+      font-size: 3rem;
+    }
+
+    .project-content {
+      padding: 23px;
+    }
+
+    .project-number {
+      display: inline-block;
+
+      margin-bottom: 10px;
+
+      color: #d6b45a;
+
+      font-size: .65rem;
+
+      font-weight: 800;
+
+      letter-spacing: .16em;
+    }
+
+    .project-content h2 {
+      margin: 0 0 10px;
+
+      font-family: Georgia, serif;
+
+      font-size: 1.45rem;
+    }
+
+    .project-content p {
+      margin: 0 0 18px;
+
+      color: #999;
+
+      font-size: .86rem;
+
+      line-height: 1.65;
+    }
+
+    .project-tech {
+      display: flex;
+
+      flex-wrap: wrap;
+
+      gap: 7px;
+    }
+
+    .project-tech span {
+      padding: 5px 9px;
+
+      border-radius: 999px;
+
+      background:
+        rgba(214,180,90,.09);
+
+      color: #d6b45a;
+
+      font-size: .65rem;
+    }
+
+    .project-button {
+      display: inline-flex;
+
+      align-items: center;
+
+      gap: 7px;
+
+      margin-top: 20px;
+
+      padding: 11px 16px;
+
+      border-radius: 999px;
+
+      background: #ffffff;
+
+      color: #111;
+
+      font-size: .75rem;
+
+      font-weight: 800;
+
+      transition: .25s ease;
+    }
+
+    .project-button:hover {
+      background: #d6b45a;
+    }
+
+    /* EMPTY */
+
+    .coming-soon {
+      padding: 55px 20px;
+
+      text-align: center;
+
+      border:
+        1px dashed rgba(255,255,255,.15);
+
+      border-radius: 22px;
+
+      color: #888;
+    }
+
+    .coming-soon strong {
+      display: block;
+
+      margin-bottom: 8px;
+
+      color: #fff;
+    }
+
+    /* FOOTER */
+
+    .projects-footer {
+      margin-top: 80px;
+
+      padding-top: 25px;
+
+      border-top:
+        1px solid rgba(255,255,255,.08);
+
+      text-align: center;
+
+      color: #777;
+
+      font-size: .72rem;
+    }
+
+    /* MOBILE */
+
+    @media (max-width: 850px) {
+
+      .projects-grid {
+        grid-template-columns:
+          repeat(2, 1fr);
+      }
+
+    }
+
+    @media (max-width: 560px) {
+
+      .projects-page {
+        width: min(94%, 500px);
+      }
+
+      .projects-header {
+        padding: 18px 0;
+      }
+
+      .back-button {
+        padding: 8px 12px;
+      }
+
+      .projects-hero {
+        padding: 55px 0 35px;
+      }
+
+      .projects-grid {
+        grid-template-columns: 1fr;
+      }
+
+      .project-card {
+        border-radius: 19px;
+      }
+
+    }
+  </style>
+</head>
+
+<body>
+
+  <div class="projects-page">
+
+    <!-- HEADER -->
+
+    <header class="projects-header">
+
+      <a
+        href="index.html"
+        class="brand"
+      >
+        Gautam<span>.</span>
+      </a>
+
+      <a
+        href="index.html"
+        class="back-button"
+      >
+        ← My Journey
+      </a>
+
+    </header>
+
+
+    <!-- HERO -->
+
+    <section class="projects-hero">
+
+      <div class="eyebrow">
+        MY PROJECTS
+      </div>
+
+      <h1>
+        Things I <span>build.</span>
+      </h1>
+
+      <p>
+        A collection of my small projects,
+        experiments and creations. New
+        projects can be added here with
+        their own preview and live link.
+      </p>
+
+    </section>
+
+
+    <!-- PROJECTS -->
+
+    <section class="projects-grid">
+
+      <!-- PROJECT 01 -->
+
+      <article class="project-card">
+
+        <div class="project-preview">
+          🚀
+        </div>
+
+        <div class="project-content">
+
+          <span class="project-number">
+            PROJECT 01
+          </span>
+
+          <h2>
+            Coming Soon
+          </h2>
+
+          <p>
+            My first project will be
+            available here soon.
+          </p>
+
+          <div class="project-tech">
+
+            <span>HTML</span>
+            <span>CSS</span>
+            <span>JavaScript</span>
+
+          </div>
+
+          <a
+            href="#"
+            class="project-button"
+          >
+            View Project →
+          </a>
+
+        </div>
+
+      </article>
+
+
+      <!-- COMING SOON -->
+
+      <div class="coming-soon">
+
+        <strong>
+          More projects coming...
+        </strong>
+
+        Whenever I build something
+        interesting, it can be showcased
+        here.
+
+      </div>
+
+    </section>
+
+
+    <!-- FOOTER -->
+
+    <footer class="projects-footer">
+
+      © 2026 Gautam Kumar · My Projects
+
+    </footer>
+
+  </div>
+
+</body>
+</html>
