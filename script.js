@@ -49,59 +49,103 @@ document.addEventListener("DOMContentLoaded", () => {
   const ITEMS_PER_LOAD = 6;
 
 
-/* =======================================================
-   WEBP OPTIMIZATION
-======================================================= */
+  /* =======================================================
+     WEBP OPTIMIZATION
+     
+     If WebP exists for an image, WebP is used.
+     If WebP does not exist, original image is used.
+  ======================================================= */
 
-function prepareGalleryMedia(files) {
-  const images = new Map();
-  const webps = new Map();
-  const videos = [];
+  function prepareGalleryMedia(files) {
 
-  files.forEach(file => {
-    if (file.type !== "file") return;
+    const images = new Map();
+    const webps = new Map();
+    const videos = [];
 
-    if (/\.(mp4|webm|ogg|mov)$/i.test(file.name)) {
-      videos.push(file);
-      return;
-    }
+    files.forEach(file => {
 
-    if (/\.(jpg|jpeg|png)$/i.test(file.name)) {
-      const key = file.name
-        .replace(/\.(jpg|jpeg|png)$/i, "")
-        .toLowerCase();
+      if (file.type !== "file") return;
 
-      images.set(key, file);
-      return;
-    }
 
-    if (/\.webp$/i.test(file.name)) {
-      const key = file.name
-        .replace(/\.webp$/i, "")
-        .toLowerCase();
+      /* Videos */
 
-      webps.set(key, file);
-    }
-  });
+      if (/\.(mp4|webm|ogg|mov)$/i.test(file.name)) {
 
-  const result = [];
+        videos.push(file);
 
-  images.forEach((original, key) => {
-    if (webps.has(key)) {
-      result.push(webps.get(key));
-    } else {
-      result.push(original);
-    }
-  });
+        return;
+      }
 
-  webps.forEach((webp, key) => {
-    if (!images.has(key)) {
-      result.push(webp);
-    }
-  });
 
-  return [...result, ...videos];
-}
+      /* Original images */
+
+      if (/\.(jpg|jpeg|png|gif|avif)$/i.test(file.name)) {
+
+        const key = file.name
+          .replace(/\.(jpg|jpeg|png|gif|avif)$/i, "")
+          .toLowerCase();
+
+        images.set(key, file);
+
+        return;
+      }
+
+
+      /* WebP */
+
+      if (/\.webp$/i.test(file.name)) {
+
+        const key = file.name
+          .replace(/\.webp$/i, "")
+          .toLowerCase();
+
+        webps.set(key, file);
+
+      }
+
+    });
+
+
+    const result = [];
+
+
+    /* Prefer WebP */
+
+    images.forEach((original, key) => {
+
+      if (webps.has(key)) {
+
+        result.push(webps.get(key));
+
+      } else {
+
+        result.push(original);
+
+      }
+
+    });
+
+
+    /*
+      If a WebP exists without an original image,
+      still show the WebP.
+    */
+
+    webps.forEach((webp, key) => {
+
+      if (!images.has(key)) {
+
+        result.push(webp);
+
+      }
+
+    });
+
+
+    return [...result, ...videos];
+
+  }
+
 
   let allMedia = [];
   let visibleCount = 0;
@@ -135,8 +179,9 @@ function prepareGalleryMedia(files) {
     try {
 
       const response = await fetch(API, {
-  cache: "default"
-});
+        cache: "default"
+      });
+
 
       if (!response.ok) {
         throw new Error("Gallery could not be loaded");
@@ -146,17 +191,22 @@ function prepareGalleryMedia(files) {
       const files = await response.json();
 
 
-      /* Only photos + videos */
+      /* Prepare photos + videos */
 
-     allMedia = prepareGalleryMedia(files);
+      allMedia = prepareGalleryMedia(files);
 
-allMedia.sort((a, b) =>
-  a.name.localeCompare(b.name, undefined, {
-    
-      /* Stable alphabetical order */
+
+      /* Stable numeric/alphabetical order */
 
       allMedia.sort((a, b) =>
-        a.name.localeCompare(b.name)
+        a.name.localeCompare(
+          b.name,
+          undefined,
+          {
+            numeric: true,
+            sensitivity: "base"
+          }
+        )
       );
 
 
@@ -293,11 +343,11 @@ allMedia.sort((a, b) =>
         <div class="media-wrapper photo-wrapper">
 
           <img
-  src="${escapeHTML(file.download_url)}"
-  alt="${escapeHTML(title)}"
-  loading="lazy"
-  decoding="async"
->
+            src="${escapeHTML(file.download_url)}"
+            alt="${escapeHTML(title)}"
+            loading="lazy"
+            decoding="async"
+          >
 
           <div class="photo-overlay">
             <span>⛶</span>
@@ -455,78 +505,7 @@ allMedia.sort((a, b) =>
     }
 
   }
-/* =======================================================
-   WEBP OPTIMIZATION
-======================================================= */
 
-function prepareGalleryMedia(files) {
-
-  const mediaFiles = files.filter(file => {
-    if (file.type !== "file") return false;
-
-    return /\.(jpg|jpeg|png|gif|webp|avif|mp4|webm|ogg|mov)$/i.test(
-      file.name
-    );
-  });
-
-  const webpMap = new Map();
-
-  /* Collect WebP files */
-  mediaFiles.forEach(file => {
-
-    if (/\.webp$/i.test(file.name)) {
-
-      const baseName = file.name
-        .replace(/\.webp$/i, "")
-        .toLowerCase();
-
-      webpMap.set(baseName, file);
-    }
-
-  });
-
-  const finalMedia = [];
-
-  mediaFiles.forEach(file => {
-
-    /* Videos */
-    if (/\.(mp4|webm|ogg|mov)$/i.test(file.name)) {
-      finalMedia.push(file);
-      return;
-    }
-
-    /* WebP */
-    if (/\.webp$/i.test(file.name)) {
-      return;
-    }
-
-    const baseName = file.name
-      .replace(/\.(jpg|jpeg|png|gif|avif)$/i, "")
-      .toLowerCase();
-
-    const webp = webpMap.get(baseName);
-
-    if (webp) {
-
-      finalMedia.push({
-        ...webp,
-        originalName: file.name,
-        optimized: true
-      });
-
-    } else {
-
-      finalMedia.push({
-        ...file,
-        optimized: false
-      });
-
-    }
-
-  });
-
-  return finalMedia;
-}
 
   /* =======================================================
      TITLE FROM FILE NAME
@@ -721,9 +700,13 @@ function prepareGalleryMedia(files) {
 
     requestAnimationFrame(() => {
 
-      viewerElement.classList.add(
-        "active"
-      );
+      if (viewerElement) {
+
+        viewerElement.classList.add(
+          "active"
+        );
+
+      }
 
     });
 
@@ -987,6 +970,7 @@ function prepareGalleryMedia(files) {
 
     currentViewerIndex--;
 
+
     if (currentViewerIndex < 0) {
 
       currentViewerIndex =
@@ -1010,6 +994,7 @@ function prepareGalleryMedia(files) {
 
 
     currentViewerIndex++;
+
 
     if (
       currentViewerIndex >=
@@ -1048,19 +1033,24 @@ function prepareGalleryMedia(files) {
 
 
     /*
-      We keep both buttons active and loop
-      from first → last and last → first.
+      Loop navigation:
+      first → last
+      last → first
     */
 
     if (previous) {
+
       previous.disabled =
         allMedia.length <= 1;
+
     }
 
 
     if (next) {
+
       next.disabled =
         allMedia.length <= 1;
+
     }
 
   }
@@ -1084,7 +1074,9 @@ function prepareGalleryMedia(files) {
       Math.abs(distance) <
       minimumSwipe
     ) {
+
       return;
+
     }
 
 
@@ -1210,4 +1202,3 @@ function prepareGalleryMedia(files) {
   loadGallery();
 
 });
-       
