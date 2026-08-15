@@ -5629,3 +5629,324 @@ body.light .journey-item:hover .journey-card {
     right: 8px;
   }
 }
+/* =========================================================
+   FINAL FOOTER POLISH — DESKTOP + TABLET + MOBILE
+========================================================= */
+
+.site-footer {
+  width: 100%;
+  max-width: 1350px;
+  margin: 0 auto;
+
+  padding: 58px 7% 24px;
+
+  border-top: 1px solid var(--line);
+  background: var(--bg);
+
+  box-sizing: border-box;
+}
+
+
+/* =========================
+   MAIN FOOTER
+========================= */
+
+.footer-main {
+  display: grid;
+
+  grid-template-columns:
+    1fr
+    1.25fr
+    1fr;
+
+  align-items: start;
+
+  gap: 50px;
+
+  padding-bottom: 45px;
+}
+
+
+/* =========================
+   BRAND
+========================= */
+
+.footer-brand {
+  display: inline-block;
+
+  width: fit-content;
+
+  color: var(--text);
+
+  font-size: 2rem;
+  font-weight: 800;
+
+  line-height: 1;
+
+  letter-spacing: -.04em;
+
+  text-decoration: none;
+
+  transition:
+    color .25s ease,
+    transform .25s ease;
+}
+
+.footer-brand span {
+  color: var(--accent);
+}
+
+.footer-brand:hover {
+  color: var(--accent);
+  transform: translateY(-2px);
+}
+
+
+/* =========================
+   DESCRIPTION
+========================= */
+
+.footer-main > p {
+  max-width: 360px;
+
+  margin: 0;
+
+  color: var(--muted);
+
+  font-size: .9rem;
+
+  line-height: 1.7;
+}
+
+
+/* =========================
+   LINKS
+========================= */
+
+.footer-links {
+  display: grid;
+
+  grid-template-columns:
+    repeat(2, max-content);
+
+  justify-content: end;
+
+  gap: 12px 28px;
+}
+
+.footer-links a {
+  position: relative;
+
+  color: var(--muted);
+
+  font-size: .82rem;
+  font-weight: 600;
+
+  text-decoration: none;
+
+  transition:
+    color .2s ease,
+    transform .2s ease;
+}
+
+.footer-links a:hover {
+  color: var(--accent);
+  transform: translateX(3px);
+}
+
+
+/* Small gold line on hover */
+
+.footer-links a::after {
+  content: "";
+
+  position: absolute;
+
+  left: 0;
+  bottom: -4px;
+
+  width: 0;
+  height: 1px;
+
+  background: var(--accent);
+
+  transition: width .25s ease;
+}
+
+.footer-links a:hover::after {
+  width: 100%;
+}
+
+
+/* =========================
+   BOTTOM
+========================= */
+
+.footer-bottom {
+  display: flex;
+
+  align-items: center;
+  justify-content: space-between;
+
+  gap: 20px;
+
+  padding-top: 20px;
+
+  border-top: 1px solid var(--line);
+
+  color: var(--muted);
+
+  font-size: .72rem;
+}
+
+.footer-bottom a {
+  color: var(--muted);
+
+  font-weight: 700;
+
+  text-decoration: none;
+
+  transition:
+    color .2s ease,
+    transform .2s ease;
+}
+
+.footer-bottom a:hover {
+  color: var(--accent);
+
+  transform: translateY(-2px);
+}
+
+
+/* =========================================================
+   TABLET
+========================================================= */
+
+@media (max-width: 900px) {
+
+  .site-footer {
+    padding:
+      52px 6% 26px;
+  }
+
+  .footer-main {
+    grid-template-columns:
+      1fr 1fr;
+
+    gap: 30px;
+
+    padding-bottom: 38px;
+  }
+
+  .footer-main > p {
+    grid-column: 1 / -1;
+
+    max-width: 560px;
+  }
+
+  .footer-links {
+    justify-content: start;
+  }
+
+}
+
+
+/* =========================================================
+   MOBILE
+========================================================= */
+
+@media (max-width: 700px) {
+
+  .site-footer {
+    padding:
+      45px 6% 78px;
+  }
+
+  .footer-main {
+    display: grid;
+
+    grid-template-columns: 1fr 1fr;
+
+    gap: 26px 20px;
+
+    padding-bottom: 30px;
+  }
+
+  .footer-brand {
+    font-size: 1.65rem;
+  }
+
+  .footer-main > p {
+    grid-column: 1 / -1;
+
+    max-width: 100%;
+
+    font-size: .84rem;
+
+    line-height: 1.65;
+  }
+
+  .footer-links {
+    grid-column: 1 / -1;
+
+    width: 100%;
+
+    display: grid;
+
+    grid-template-columns:
+      repeat(2, 1fr);
+
+    justify-content: start;
+
+    gap: 12px 20px;
+  }
+
+  .footer-links a {
+    font-size: .78rem;
+  }
+
+  .footer-bottom {
+    flex-direction: column;
+
+    align-items: flex-start;
+
+    gap: 10px;
+
+    font-size: .7rem;
+  }
+
+}
+
+
+/* =========================================================
+   SMALL MOBILE
+========================================================= */
+
+@media (max-width: 420px) {
+
+  .site-footer {
+    padding:
+      42px 5% 76px;
+  }
+
+  .footer-main {
+    gap: 22px 14px;
+  }
+
+  .footer-brand {
+    font-size: 1.55rem;
+  }
+
+  .footer-main > p {
+    font-size: .82rem;
+  }
+
+  .footer-links {
+    gap: 11px 14px;
+  }
+
+  .footer-links a {
+    font-size: .75rem;
+  }
+
+}
