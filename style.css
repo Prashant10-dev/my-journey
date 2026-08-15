@@ -5950,3 +5950,47 @@ body.light .journey-item:hover .journey-card {
   }
 
 }
+/* =========================================================
+   FINAL DESKTOP PHOTO VIEWER SIZE
+========================================================= */
+
+@media (min-width: 701px) {
+
+  .photo-viewer {
+    padding: 55px 70px 45px;
+  }
+
+  .photo-viewer .viewer-content {
+    width: min(92vw, 1400px);
+    height: calc(100vh - 100px);
+
+    gap: 14px;
+  }
+
+  .photo-viewer .viewer-media {
+    width: 100%;
+    height: calc(100% - 55px);
+
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+
+  .photo-viewer .viewer-media img,
+  .photo-viewer .viewer-media video {
+    width: auto;
+    height: auto;
+
+    max-width: 88vw;
+    max-height: calc(100vh - 155px);
+
+    object-fit: contain;
+
+    border-radius: 12px;
+  }
+
+  .photo-viewer .viewer-info {
+    min-height: 30px;
+  }
+
+}
