@@ -6101,3 +6101,33 @@ body.light .journey-item:hover .journey-card {
   }
 
 }
+/* =========================================================
+   DESKTOP VIEWER — FINAL SIZE FIX
+   Only changes fullscreen media size.
+========================================================= */
+
+@media (min-width: 701px) {
+
+  .photo-viewer {
+    padding: 25px 40px 25px;
+  }
+
+  .photo-viewer .viewer-content {
+    width: 96vw;
+    height: calc(100vh - 50px);
+  }
+
+  .photo-viewer .viewer-media {
+    height: calc(100% - 40px);
+  }
+
+  .photo-viewer .viewer-media img,
+  .photo-viewer .viewer-media video {
+    max-width: 94vw;
+    max-height: calc(100vh - 90px);
+    width: auto;
+    height: auto;
+    object-fit: contain;
+  }
+
+}
