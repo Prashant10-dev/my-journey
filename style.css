@@ -5994,3 +5994,110 @@ body.light .journey-item:hover .journey-card {
   }
 
 }
+/* =========================================================
+   FINAL MEDIA VIEWER SIZE FIX
+   Only affects the fullscreen photo/video viewer
+========================================================= */
+
+.photo-viewer .viewer-content {
+  width: min(88vw, 1050px);
+  height: min(82vh, 820px);
+
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+
+  margin: auto;
+}
+
+.photo-viewer .viewer-media {
+  width: 100%;
+  height: 100%;
+
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  overflow: hidden;
+}
+
+/* Photos + videos stay inside the same frame */
+.photo-viewer .viewer-media img,
+.photo-viewer .viewer-media video {
+  display: block;
+
+  width: 100%;
+  height: 100%;
+
+  max-width: 100%;
+  max-height: 100%;
+
+  object-fit: contain;
+
+  border-radius: 14px;
+}
+
+/* Keep viewer information below media */
+.photo-viewer .viewer-info {
+  flex-shrink: 0;
+  margin-top: 14px;
+
+  text-align: center;
+}
+
+
+/* =========================================================
+   DESKTOP
+========================================================= */
+
+@media (min-width: 769px) {
+
+  .photo-viewer .viewer-content {
+    width: min(78vw, 1000px);
+    height: min(78vh, 760px);
+  }
+
+  .photo-viewer .viewer-media img,
+  .photo-viewer .viewer-media video {
+    border-radius: 14px;
+  }
+
+}
+
+
+/* =========================================================
+   MOBILE
+========================================================= */
+
+@media (max-width: 768px) {
+
+  .photo-viewer .viewer-content {
+    width: 92vw;
+    height: 76vh;
+  }
+
+  .photo-viewer .viewer-media img,
+  .photo-viewer .viewer-media video {
+    border-radius: 12px;
+  }
+
+  .photo-viewer .viewer-info {
+    margin-top: 10px;
+  }
+
+}
+
+
+/* =========================================================
+   VERY SMALL PHONES
+========================================================= */
+
+@media (max-width: 420px) {
+
+  .photo-viewer .viewer-content {
+    width: 94vw;
+    height: 72vh;
+  }
+
+}
