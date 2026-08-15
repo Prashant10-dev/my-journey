@@ -8,38 +8,79 @@ on:
       - "gallery/**"
       - ".github/workflows/optimize-images.yml"
 
+  workflow_dispatch:
+
 permissions:
   contents: write
+
 
 jobs:
   optimize:
     runs-on: ubuntu-latest
 
     steps:
+
+      # =====================================================
+      # CHECKOUT
+      # =====================================================
+
       - name: Checkout repository
         uses: actions/checkout@v6
+
+
+      # =====================================================
+      # INSTALL WEBP TOOLS
+      # =====================================================
 
       - name: Install WebP tools
         run: |
           sudo apt-get update
           sudo apt-get install -y webp
 
-      - name: Convert gallery images to WebP
+
+      # =====================================================
+      # CONVERT + VERIFY + DELETE ORIGINAL
+      # =====================================================
+
+      - name: Convert and verify gallery images
         shell: bash
         run: |
-          shopt -s nullglob nocaseglob
+
+          set -euo pipefail
+
+          shopt -s nullglob
+          shopt -s nocaseglob
+
+          changed=false
 
           for file in gallery/*; do
 
+            # Ignore folders
             if [[ ! -f "$file" ]]; then
               continue
             fi
 
+
+            # =================================================
+            # JPG / JPEG / PNG ONLY
+            # =================================================
+
             case "$file" in
+
               *.jpg|*.jpeg|*.png)
+
                 output="${file%.*}.webp"
 
-                echo "Optimizing: $file"
+
+                echo "======================================"
+                echo "Source : $file"
+                echo "WebP   : $output"
+                echo "======================================"
+
+
+                # -------------------------------------------------
+                # CREATE WEBP
+                # -------------------------------------------------
 
                 cwebp \
                   -q 82 \
@@ -47,26 +88,87 @@ jobs:
                   "$file" \
                   -o "$output"
 
+
+                # -------------------------------------------------
+                # VERIFY WEBP
+                #
+                # If conversion fails, workflow stops here.
+                # Original image will NOT be deleted.
+                # -------------------------------------------------
+
+                test -s "$output"
+
+
+                # Verify that WebP can actually be decoded.
+                dwebp \
+                  "$output" \
+                  -o /tmp/webp-test.png \
+                  -quiet
+
+
+                test -s /tmp/webp-test.png
+
+
+                echo "WebP verification successful."
+
+
+                # -------------------------------------------------
+                # DELETE ORIGINAL ONLY AFTER SUCCESSFUL VERIFY
+                # -------------------------------------------------
+
+                rm -f -- "$file"
+
+
+                echo "Original removed: $file"
+
+
+                changed=true
+
                 ;;
 
               *)
+                # Ignore WebP, AVIF, GIF, videos, etc.
+                continue
                 ;;
+
             esac
 
           done
 
-      - name: Commit generated WebP files
+
+          echo "changed=$changed" >> "$GITHUB_ENV"
+
+
+      # =====================================================
+      # COMMIT CHANGES
+      # =====================================================
+
+      - name: Commit optimized images
+        if: env.changed == 'true'
         shell: bash
         run: |
+
           git config user.name "github-actions[bot]"
-          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
 
-          git add gallery/*.webp
+          git config user.email \
+            "41898282+github-actions[bot]@users.noreply.github.com"
 
-          if git diff --cached --quiet; then
-            echo "No new WebP files to commit."
-            exit 0
-          fi
 
-          git commit -m "chore: optimize gallery images"
+          git add -A gallery
+
+
+          git commit \
+            -m "chore: optimize gallery images"
+
+
           git push
+
+
+      # =====================================================
+      # NOTHING TO DO
+      # =====================================================
+
+      - name: Nothing to optimize
+        if: env.changed != 'true'
+        run: |
+          echo "No JPG/JPEG/PNG files found in gallery."
