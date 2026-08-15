@@ -43,8 +43,7 @@ document.addEventListener("DOMContentLoaded", () => {
 
 
   const API =
-    "https://api.github.com/repos/Prashant10-dev/my-journey/contents/gallery";
-
+  "https://api.github.com/repos/TechG7/my-journey/contents/gallery";
 
   const ITEMS_PER_LOAD = 6;
 
