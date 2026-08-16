@@ -6181,3 +6181,75 @@ body.light .journey-item:hover .journey-card {
   }
 
 }
+/* =========================================================
+   DESKTOP FOOTER — FINAL GAP FIX
+   Mobile remains untouched
+========================================================= */
+
+@media (min-width: 769px) {
+
+  /* Remove the huge empty area below
+     "Stay curious. Keep moving." */
+  .contact-section {
+    padding-bottom: 45px !important;
+    min-height: 0 !important;
+    height: auto !important;
+  }
+
+  .contact-section .contact-bottom {
+    margin-bottom: 0 !important;
+    padding-bottom: 0 !important;
+    min-height: 0 !important;
+    height: auto !important;
+  }
+
+  /* Footer itself */
+  footer.site-footer {
+    margin: 0 !important;
+    padding: 55px 7% 25px !important;
+    min-height: 0 !important;
+    height: auto !important;
+  }
+
+  /* Main footer row */
+  footer.site-footer .footer-main {
+    margin: 0 !important;
+    padding: 0 !important;
+    min-height: 0 !important;
+    height: auto !important;
+
+    display: grid !important;
+    grid-template-columns: 1fr 1.35fr 1fr !important;
+    align-items: start !important;
+    gap: 50px !important;
+  }
+
+  /* Footer description */
+  footer.site-footer .footer-main > p {
+    margin: 0 !important;
+  }
+
+  /* Footer navigation */
+  footer.site-footer .footer-links {
+    margin: 0 !important;
+    padding: 0 !important;
+
+    display: grid !important;
+    grid-template-columns: repeat(2, max-content) !important;
+    justify-content: end !important;
+    column-gap: 42px !important;
+    row-gap: 12px !important;
+  }
+
+  /* Copyright row */
+  footer.site-footer .footer-bottom {
+    margin: 45px 0 0 !important;
+    padding: 20px 0 0 !important;
+
+    min-height: 0 !important;
+    height: auto !important;
+
+    border-top: 1px solid var(--line);
+  }
+
+}
