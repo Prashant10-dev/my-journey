@@ -6131,3 +6131,53 @@ body.light .journey-item:hover .journey-card {
   }
 
 }
+/* =========================================================
+   DESKTOP FOOTER SPACING FIX
+   Mobile is NOT affected
+========================================================= */
+
+@media (min-width: 769px) {
+
+  /* Remove unnecessary empty space above footer */
+  .contact-bottom {
+    margin-bottom: 0 !important;
+    padding-bottom: 28px !important;
+  }
+
+  /* Footer starts normally after contact section */
+  .site-footer {
+    margin-top: 0 !important;
+    padding-top: 48px !important;
+    padding-bottom: 28px !important;
+  }
+
+  /* Main footer content */
+  .footer-main {
+    margin: 0 !important;
+    padding: 0 !important;
+    min-height: 0 !important;
+  }
+
+  /* Keep footer items properly aligned */
+  .footer-main {
+    display: grid;
+    grid-template-columns: 1fr 1.4fr 1fr;
+    align-items: start;
+    gap: 60px;
+  }
+
+  /* Footer navigation */
+  .footer-links {
+    margin: 0 !important;
+    padding: 0 !important;
+  }
+
+  /* Remove unnecessary large gap before copyright */
+  .footer-bottom {
+    margin-top: 42px !important;
+    padding-top: 22px !important;
+    padding-bottom: 0 !important;
+    min-height: 0 !important;
+  }
+
+}
