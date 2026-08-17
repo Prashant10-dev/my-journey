@@ -869,8 +869,7 @@ document.addEventListener("DOMContentLoaded", () => {
         document.createElement("img");
 
 
-      image.src =
-        media.download_url;
+      image.src = `https://raw.githubusercontent.com/TechG7/my-journey/main/gallery/${encodeURIComponent(media.name)}`;
 
 
       image.alt =
@@ -902,9 +901,7 @@ document.addEventListener("DOMContentLoaded", () => {
         document.createElement("video");
 
 
-      video.src =
-        media.download_url;
-
+      image.src = `https://raw.githubusercontent.com/TechG7/my-journey/main/gallery/${encodeURIComponent(media.name)}`;
 
       video.controls =
         true;
