@@ -897,12 +897,9 @@ document.addEventListener("DOMContentLoaded", () => {
 
     else {
 
-      const video =
-        document.createElement("video");
+      const video = document.createElement("video");
 
-
-      image.src = `https://raw.githubusercontent.com/TechG7/my-journey/main/gallery/${encodeURIComponent(media.name)}`;
-
+video.src = `gallery/${encodeURIComponent(media.name)}`;
       video.controls =
         true;
 
