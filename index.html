@@ -21,6 +21,7 @@
 
 <link rel="preload" as="image" href="gautam-profile.jpg" fetchpriority="high">
 <link rel="stylesheet" href="style.css">
+  <link rel="manifest" href="manifest.webmanifest">
 </head>
 <body>
 <header class="nav">
@@ -470,4 +471,15 @@
 
 </footer>
   <script src="script.js?v=2"></script>
+  <script>
+if ("serviceWorker" in navigator) {
+  window.addEventListener("load", () => {
+    navigator.serviceWorker.register("sw.js", {
+      scope: "/my-journey/"
+    }).catch(error => {
+      console.error("Service Worker registration failed:", error);
+    });
+  });
+}
+  </script>
 </body></html>
