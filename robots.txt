@@ -1,0 +1,4 @@
+User-agent: *
+Allow: /
+
+Sitemap: https://techg7.github.io/my-journey/sitemap.xml
