@@ -1,4 +1,4 @@
-const CACHE_NAME = "my-journey-v1";
+const CACHE_NAME = "my-journey-v2";
 
 const CORE_FILES = [
   "/my-journey/",
