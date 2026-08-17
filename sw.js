@@ -1,4 +1,4 @@
-const CACHE_NAME = "my-journey-v2";
+const CACHE_NAME = "my-journey-v3";
 
 const CORE_FILES = [
   "/my-journey/",
@@ -33,6 +33,16 @@ self.addEventListener("activate", event => {
 
 self.addEventListener("fetch", event => {
   if (event.request.method !== "GET") return;
+
+  const url = new URL(event.request.url);
+
+  // IMPORTANT:
+  // Only handle requests belonging to this website.
+  // Do NOT intercept raw.githubusercontent.com,
+  // YouTube, APIs, or other external resources.
+  if (url.origin !== self.location.origin) {
+    return;
+  }
 
   event.respondWith(
     fetch(event.request)
