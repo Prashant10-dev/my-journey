@@ -342,7 +342,7 @@ document.addEventListener("DOMContentLoaded", () => {
         <div class="media-wrapper photo-wrapper">
 
           <img
-            src="${escapeHTML(file.download_url)}"
+            src="https://raw.githubusercontent.com/TechG7/my-journey/main/gallery/${encodeURIComponent(file.name)}"
             alt="${escapeHTML(title)}"
             loading="lazy"
             decoding="async"
@@ -389,7 +389,7 @@ document.addEventListener("DOMContentLoaded", () => {
         <div class="media-wrapper video-wrapper">
 
           <video
-            src="${escapeHTML(file.download_url)}"
+            src="https://raw.githubusercontent.com/TechG7/my-journey/main/gallery/${encodeURIComponent(file.name)}"
             preload="none"
             playsinline
             controls
