@@ -6253,3 +6253,11 @@ body.light .journey-item:hover .journey-card {
   }
 
 }
+/* Desktop view ke liye force 2 columns */
+@media (min-width: 768px) {
+    .contact-grid {
+        display: grid !important;
+        grid-template-columns: 1fr 1fr !important;
+        gap: 15px;
+    }
+}
