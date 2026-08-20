@@ -6243,3 +6243,83 @@ body.light .journey-item:hover .journey-card {
 
     }
 }
+.pwa-install-box{
+  display:flex;
+  align-items:center;
+  gap:14px;
+  margin-top:22px;
+  padding:14px 16px;
+  max-width:370px;
+  border:1px solid rgba(214,180,90,.25);
+  border-radius:18px;
+  background:linear-gradient(135deg,rgba(255,255,255,.06),rgba(214,180,90,.05));
+  box-shadow:0 15px 40px rgba(0,0,0,.2);
+}
+
+.pwa-install-logo{
+  width:46px;
+  height:46px;
+  border-radius:13px;
+  object-fit:cover;
+  border:1px solid rgba(214,180,90,.35);
+}
+
+.pwa-install-text{
+  flex:1;
+}
+
+.pwa-install-text span{
+  display:block;
+  color:#d6b45a;
+  font-size:9px;
+  font-weight:800;
+  letter-spacing:.16em;
+}
+
+.pwa-install-text strong{
+  display:block;
+  margin-top:3px;
+  color:#fff;
+  font-size:14px;
+}
+
+.pwa-install-text small{
+  display:block;
+  margin-top:3px;
+  color:#999;
+  font-size:10px;
+}
+
+.pwa-install-btn{
+  border:0;
+  padding:10px 15px;
+  border-radius:999px;
+  background:#fff;
+  color:#111;
+  font-size:11px;
+  font-weight:800;
+  cursor:pointer;
+  transition:.25s ease;
+}
+
+.pwa-install-btn:hover{
+  background:#d6b45a;
+  transform:translateY(-1px);
+}
+
+@media(max-width:560px){
+  .pwa-install-box{
+    max-width:100%;
+    padding:12px;
+  }
+
+  .pwa-install-logo{
+    width:42px;
+    height:42px;
+  }
+
+  .pwa-install-btn{
+    padding:9px 11px;
+    font-size:10px;
+  }
+}
