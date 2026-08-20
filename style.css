@@ -6323,3 +6323,94 @@ body.light .journey-item:hover .journey-card {
     font-size:10px;
   }
 }
+/* Premium PWA footer placement */
+
+.footer-main{
+  align-items:flex-start;
+}
+
+.footer-main > div:first-child{
+  display:flex;
+  flex-direction:column;
+  align-items:flex-start;
+}
+
+.footer-main .pwa-install-box{
+  display:flex;
+  flex-direction:column;
+  align-items:flex-start;
+  gap:10px;
+  width:100%;
+  max-width:260px;
+  margin-top:18px;
+  padding:0;
+  border:0;
+  background:none;
+  box-shadow:none;
+}
+
+.footer-main .pwa-install-logo{
+  width:52px;
+  height:52px;
+  border-radius:15px;
+  object-fit:cover;
+  border:1px solid rgba(214,180,90,.35);
+  box-shadow:0 8px 25px rgba(0,0,0,.3);
+}
+
+.footer-main .pwa-install-text{
+  width:100%;
+}
+
+.footer-main .pwa-install-text span{
+  display:block;
+  color:#d6b45a;
+  font-size:9px;
+  font-weight:800;
+  letter-spacing:.16em;
+}
+
+.footer-main .pwa-install-text strong{
+  display:block;
+  margin-top:3px;
+  color:#fff;
+  font-size:14px;
+}
+
+.footer-main .pwa-install-text small{
+  display:block;
+  margin-top:3px;
+  color:#999;
+  font-size:10px;
+}
+
+.footer-main .pwa-install-btn{
+  display:inline-flex;
+  align-items:center;
+  justify-content:center;
+  padding:10px 16px;
+  border:0;
+  border-radius:999px;
+  background:#fff;
+  color:#111;
+  font-size:11px;
+  font-weight:800;
+  cursor:pointer;
+  transition:.25s ease;
+}
+
+.footer-main .pwa-install-btn:hover{
+  background:#d6b45a;
+  transform:translateY(-2px);
+}
+
+@media(max-width:700px){
+  .footer-main{
+    display:flex;
+    flex-direction:column;
+  }
+
+  .footer-main .pwa-install-box{
+    max-width:100%;
+  }
+}
