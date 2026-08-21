@@ -6414,3 +6414,274 @@ body.light .journey-item:hover .journey-card {
     max-width:100%;
   }
 }
+
+/* =========================================================
+   PREMIUM FOOTER
+========================================================= */
+
+.site-footer{
+  width:100%;
+  max-width:1400px;
+  margin:0 auto;
+  padding:70px 7% 25px;
+  border-top:1px solid var(--line);
+  color:var(--muted);
+  text-align:left;
+}
+
+.footer-grid{
+  display:grid;
+  grid-template-columns:
+    1.35fr
+    .8fr
+    1.2fr
+    .9fr;
+  gap:55px;
+  align-items:start;
+}
+
+.footer-brand{
+  display:inline-block;
+  margin-bottom:18px;
+  color:var(--text);
+  font-size:2rem;
+  font-weight:800;
+  letter-spacing:-.04em;
+}
+
+.footer-brand span{
+  color:var(--accent);
+}
+
+.footer-description{
+  max-width:300px;
+  margin:0 0 28px;
+  color:var(--muted);
+  font-size:.9rem;
+  line-height:1.7;
+}
+
+.footer-column{
+  display:flex;
+  flex-direction:column;
+  gap:11px;
+}
+
+.footer-column h4{
+  margin:0 0 13px;
+  color:var(--text);
+  font-size:.85rem;
+  font-weight:800;
+}
+
+.footer-column a{
+  color:var(--muted);
+  font-size:.82rem;
+  transition:.2s ease;
+}
+
+.footer-column a:hover{
+  color:var(--accent);
+  transform:translateX(2px);
+}
+
+.footer-column p{
+  max-width:240px;
+  margin:0 0 12px;
+  color:var(--muted);
+  font-size:.82rem;
+  line-height:1.7;
+}
+
+.footer-column small{
+  color:var(--muted);
+  font-size:.75rem;
+}
+
+.footer-about a{
+  margin-top:2px;
+}
+
+
+/* =========================================================
+   INSTALL CARD
+========================================================= */
+
+.footer-install{
+  display:flex;
+  align-items:center;
+  gap:13px;
+  width:min(100%,330px);
+  padding:13px;
+  border:1px solid var(--line);
+  border-radius:16px;
+  background:var(--panel);
+  transition:.25s ease;
+}
+
+.footer-install:hover{
+  transform:translateY(-2px);
+  border-color:rgba(216,177,90,.45);
+}
+
+.footer-app-icon{
+  width:48px;
+  height:48px;
+  flex:0 0 48px;
+  object-fit:cover;
+  border-radius:13px;
+  border:1px solid var(--line);
+}
+
+.footer-install-info{
+  min-width:0;
+  flex:1;
+  display:flex;
+  flex-direction:column;
+}
+
+.footer-install-info small{
+  color:var(--accent);
+  font-size:.6rem;
+  font-weight:800;
+  letter-spacing:.14em;
+}
+
+.footer-install-info strong{
+  margin-top:2px;
+  color:var(--text);
+  font-size:.82rem;
+}
+
+.footer-install-info span{
+  color:var(--muted);
+  font-size:.68rem;
+  line-height:1.4;
+}
+
+.footer-install-btn{
+  flex-shrink:0;
+  border:0;
+  border-radius:10px;
+  padding:9px 12px;
+  background:var(--text);
+  color:var(--bg);
+  font-family:inherit;
+  font-size:.72rem;
+  font-weight:800;
+  cursor:pointer;
+  transition:.2s ease;
+}
+
+.footer-install-btn:hover{
+  transform:translateY(-1px);
+}
+
+.footer-install-btn[hidden]{
+  display:none;
+}
+
+
+/* =========================================================
+   INSTALLED STATE
+========================================================= */
+
+.footer-install.installed{
+  border-color:rgba(70,190,110,.35);
+}
+
+.footer-install.installed .footer-install-btn{
+  background:#1d9b55;
+  color:#fff;
+}
+
+
+/* =========================================================
+   FOOTER BOTTOM
+========================================================= */
+
+.site-footer .footer-bottom{
+  display:flex;
+  align-items:center;
+  justify-content:space-between;
+  gap:20px;
+  margin-top:55px;
+  padding-top:20px;
+  border-top:1px solid var(--line);
+  color:var(--muted);
+  font-size:.72rem;
+}
+
+.site-footer .footer-bottom a{
+  color:var(--muted);
+  transition:.2s ease;
+}
+
+.site-footer .footer-bottom a:hover{
+  color:var(--accent);
+}
+
+
+/* =========================================================
+   MOBILE FOOTER
+========================================================= */
+
+@media(max-width:768px){
+
+  .site-footer{
+    padding:55px 6% 25px;
+  }
+
+  .footer-grid{
+    grid-template-columns:1fr;
+    gap:38px;
+  }
+
+  .footer-brand{
+    font-size:1.8rem;
+  }
+
+  .footer-description{
+    max-width:330px;
+  }
+
+  .footer-install{
+    width:100%;
+    max-width:380px;
+  }
+
+  .footer-column{
+    padding-top:4px;
+  }
+
+  .site-footer .footer-bottom{
+    flex-direction:column;
+    align-items:flex-start;
+    gap:12px;
+    margin-top:40px;
+  }
+
+}
+
+
+/* =========================================================
+   TABLET / DESKTOP-SITE
+========================================================= */
+
+@media(min-width:769px) and (max-width:1100px){
+
+  .site-footer{
+    padding-left:5%;
+    padding-right:5%;
+  }
+
+  .footer-grid{
+    grid-template-columns:
+      1.2fr
+      .8fr
+      1fr
+      .8fr;
+    gap:30px;
+  }
+
+}
