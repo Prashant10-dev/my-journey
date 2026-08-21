@@ -1,14 +1,12 @@
-const CACHE_NAME = "my-journey-v3";
+const CACHE_NAME = "my-journey-v4";
 
 const CORE_FILES = [
   "/my-journey/",
   "/my-journey/index.html",
   "/my-journey/style.css",
-  "/my-journey/script.js",
-  "/my-journey/projects.html",
-  "/my-journey/first-post.html",
-  "/my-journey/second-post.html",
-  "/my-journey/manifest.webmanifest"
+  "/my-journey/manifest.webmanifest",
+  "/my-journey/icon-192.png",
+  "/my-journey/icon-512.png"
 ];
 
 self.addEventListener("install", event => {
@@ -16,6 +14,7 @@ self.addEventListener("install", event => {
     caches.open(CACHE_NAME)
       .then(cache => cache.addAll(CORE_FILES))
       .then(() => self.skipWaiting())
+      .catch(() => self.skipWaiting())
   );
 });
 
@@ -36,13 +35,7 @@ self.addEventListener("fetch", event => {
 
   const url = new URL(event.request.url);
 
-  // IMPORTANT:
-  // Only handle requests belonging to this website.
-  // Do NOT intercept raw.githubusercontent.com,
-  // YouTube, APIs, or other external resources.
-  if (url.origin !== self.location.origin) {
-    return;
-  }
+  if (url.origin !== self.location.origin) return;
 
   event.respondWith(
     fetch(event.request)
@@ -51,12 +44,13 @@ self.addEventListener("fetch", event => {
           const copy = response.clone();
 
           caches.open(CACHE_NAME)
-            .then(cache => cache.put(event.request, copy));
-
-          return response;
+            .then(cache => cache.put(event.request, copy))
+            .catch(() => {});
         }
 
-        return caches.match(event.request);
+        return response.ok
+          ? response
+          : caches.match(event.request);
       })
       .catch(() => caches.match(event.request))
   );
