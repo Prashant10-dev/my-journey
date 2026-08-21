@@ -434,33 +434,121 @@
   </main>
   <footer class="site-footer">
 
-  <div class="footer-main">
+  <div class="footer-grid">
 
-    <a href="#home" class="footer-brand">
-      Gautam<span>.</span>
-    </a>
+    <!-- BRAND -->
+    <div class="footer-brand-col">
 
-    <p>
-      My journey, memories, ideas and stories —
-      all in one place.
-    </p>
+      <a href="#home" class="footer-brand">
+        Gautam<span>.</span>
+      </a>
 
-    <div class="footer-links">
+      <p class="footer-description">
+        My journey, memories, ideas and stories —
+        all in one place.
+      </p>
+
+      <!-- PWA INSTALL -->
+      <div class="footer-install">
+
+        <img
+          src="icon-192.png"
+          alt="My Journey App"
+          class="footer-app-icon"
+        >
+
+        <div class="footer-install-info">
+          <small>MY JOURNEY APP</small>
+          <strong id="installStatus">
+            Install App
+          </strong>
+          <span>
+            Fast access from your home screen
+          </span>
+        </div>
+
+        <button
+          id="installAppBtn"
+          class="footer-install-btn"
+          type="button"
+          hidden
+        >
+          Install →
+        </button>
+
+      </div>
+
+    </div>
+
+
+    <!-- QUICK LINKS -->
+    <div class="footer-column">
+
+      <h4>Quick Links</h4>
+
       <a href="#home">Home</a>
       <a href="#about">About</a>
       <a href="#journey">Journey</a>
       <a href="#blog">Blog</a>
       <a href="#gallery">Gallery</a>
-      <a href="projects.html" class="nav-link">Projects</a>
+      <a href="projects.html">Projects</a>
       <a href="#contact">Contact</a>
+
+    </div>
+
+
+    <!-- FAQ -->
+    <div class="footer-column">
+
+      <h4>Frequently Asked Questions</h4>
+
+      <a href="#contact">
+        <span>▸</span> About this website
+      </a>
+
+      <a href="#gallery">
+        <span>▸</span> Are these photos uploaded by me?
+      </a>
+
+      <a href="#journey">
+        <span>▸</span> What is My Journey?
+      </a>
+
+      <a href="#contact">
+        <span>▸</span> How can I connect?
+      </a>
+
+    </div>
+
+
+    <!-- ABOUT -->
+    <div class="footer-column footer-about">
+
+      <h4>About</h4>
+
+      <p>
+        My Journey is a personal collection of
+        stories, memories and simple moments.
+      </p>
+
+      <small>
+        Created by Gautam Kumar
+      </small>
+
+      <a href="#home">
+        TechG7 · My Journey →
+      </a>
+
     </div>
 
   </div>
 
+
+  <!-- FOOTER BOTTOM -->
   <div class="footer-bottom">
 
     <span>
-      © 2026 Gautam Kumar · My Journey
+      © 2026 Gautam Kumar · My Journey · All rights reserved.
     </span>
 
     <a href="#home">
@@ -469,7 +557,8 @@
 
   </div>
 
-</footer>  <script src="script.js?v=2"></script>
+  </footer>
+   <script src="script.js?v=2"></script>
   <script>
 if ("serviceWorker" in navigator) {
   window.addEventListener("load", () => {
